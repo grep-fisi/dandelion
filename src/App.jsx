@@ -5,8 +5,6 @@ import { Dialog, TextInput } from '@mantine/core'
 import files from './data/movies.json'
 import genObjArr from './utilities/genObjArr'
 
-const symbols = ['!', '~', '/\\', '&', '&&', '<=>', '<', '=>', '>', '||']
-
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure(false)
   const [placeholder, setPlaceholder] = useState('')
@@ -16,19 +14,19 @@ export default function App() {
 
   const ogData = genObjArr(files, 'name')
 
-  useEffect(() => {
-    const bodyStr = JSON.stringify({
-      files: ogData
-    })
+  // useEffect(() => {
+  //   const bodyStr = JSON.stringify({
+  //     files: ogData
+  //   })
 
-    fetch('http://localhost:9090/upload/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: bodyStr
-    })
-  }, [])
+  //   fetch('http://localhost:9090/upload/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: bodyStr
+  //   })
+  // }, [])
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -47,7 +45,7 @@ export default function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [toggle, input, placeholder])
+  }, [toggle, close, opened, input, placeholder])
 
   useEffect(() => {
     if (opened) {
@@ -61,43 +59,11 @@ export default function App() {
     setInvalid(false)
   }, [opened, input])
 
-  function getSets(string) {
-    let newStr = string
-    symbols.forEach((e) => {
-      newStr = newStr.replaceAll(e, '')
-    })
-
-    let sets = newStr.split(/[ ]+/)
-    return sets
-  }
-
   const handleEnter = () => {
     if (input === '') {
       setRawData(ogData)
       return
     }
-
-    const bodyStr = JSON.stringify({
-      sets: getSets(input),
-      expr: input
-    })
-
-    fetch('http://localhost:9090/api/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: bodyStr
-    }).then((e) => {
-      console.log(bodyStr)
-      e.json().then((res) => {
-        if (res === null) {
-          setInvalid(true)
-          return
-        }
-        setRawData(res)
-      })
-    })
   }
 
   return (
@@ -122,15 +88,6 @@ export default function App() {
           error={invalid}
         />
       </Dialog>
-
-      <p
-        style={{
-          position: 'absolute', 
-          top: 30, 
-          right: 40,
-        }}
-      >© Grep 2023</p>
-
       <GraphView rawData={rawData} />
     </>
   )
