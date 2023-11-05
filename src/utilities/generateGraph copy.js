@@ -4,7 +4,7 @@ export default function generateGraph(objArr) {
   let nodeFiles = []
   let nodeTags = []
 
-  objArr.forEach((obj) => { 
+  objArr.forEach((obj) => {
     obj.tags.forEach((tag) => {
       if (!tagsMap[tag]) {
         tagsMap[tag] = []
@@ -43,5 +43,6 @@ export default function generateGraph(objArr) {
   })
 
   const nodes = nodeFiles.concat(nodeTags)
+  console.log(nodes)
   return { nodes, links }
 }

@@ -1,15 +1,15 @@
 import ForceGraph2D from 'react-force-graph-2d'
-import generateGraph from '../../utilities/generateGraph'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useMantineTheme } from '@mantine/core'
 import { useViewportSize } from '@mantine/hooks'
+import genGraph from '../../utilities/genGraph'
 
 export default function GraphView({ rawData }) {
-  const graphRef = useRef(null)
+  const { height, width } = useViewportSize()
+  const thisGraph = useRef(null)
   const mouseDown = useRef(false)
   const colors = useMantineTheme().colors
-  const { height, width } = useViewportSize()
 
   /* Interactivity */
 
@@ -20,36 +20,31 @@ export default function GraphView({ rawData }) {
     function handleMouseUp() {
       mouseDown.current = false
     }
-    function handleEscape(e) {
-      if (e.key === 'Escape') {
-        handleBackgroundClick()
-      }
-    }
     window.addEventListener('mousedown', handleMouseDown, true)
     window.addEventListener('mouseup', handleMouseUp, true)
-    window.addEventListener('keydown', handleEscape, true)
     return () => {
       window.removeEventListener('mousedown', handleMouseDown, true)
       window.removeEventListener('mouseup', handleMouseUp, true)
-      window.removeEventListener('keydown', handleEscape, true)
     }
   }, [])
 
   const data = useMemo(() => {
-    const gData = generateGraph(rawData, 'name')
+    const gData = genGraph(rawData, 'name')
+    console.log(gData.nodes)
 
     gData.links.forEach((link) => {
-      const a = gData.nodes[link.source]
-      const b = gData.nodes[link.target]
-      !a.neighbors && (a.neighbors = [])
-      !b.neighbors && (b.neighbors = [])
-      a.neighbors.push(b)
-      b.neighbors.push(a)
+      const a = gData.nodes.filter((node) => node.id === link.source)
+      console.log(a)
+      // const b = gData.nodes[link.target]
+      // !a.neighbors && (a.neighbors = [])
+      // !b.neighbors && (b.neighbors = [])
+      // a.neighbors.push(b)
+      // b.neighbors.push(a)
 
-      !a.links && (a.links = [])
-      !b.links && (b.links = [])
-      a.links.push(link)
-      b.links.push(link)
+      // !a.links && (a.links = [])
+      // !b.links && (b.links = [])
+      // a.links.push(link)
+      // b.links.push(link)  
     })
 
     return gData
@@ -173,7 +168,7 @@ export default function GraphView({ rawData }) {
           }
         }
       })
-  }, [hoveredNodes])
+  }, [data.links, hoveredNodes])
 
   const setNodeColor = (node) => {
     if (hoveredNodes.has(node)) {
@@ -189,30 +184,31 @@ export default function GraphView({ rawData }) {
   }
 
   const setLinkColor = (link) => {
-    if (hoveredLinks.has(link)) {
-      return colors.main[0]
-    }
-    if (focusMode) {
-      if (clickedLinks.has(link)) {
-        return colors.dark[3]
-      }
-      return colors.dark[5]
-    }
-    return colors.dark[3]
+    return colors.dark[5]
+    // if (hoveredLinks.has(link)) {
+    //   return colors.main[0]
+    // }
+    // if (focusMode) {
+    //   if (clickedLinks.has(link)) {
+    //     return colors.dark[3]
+    //   }
+    //   return colors.dark[5]
+    // }
+    // return colors.dark[3]
   }
 
   /* Zoom to fit on data change */
 
   useEffect(() => {
     setTimeout(() => {
-      graphRef.current.zoomToFit(0, height / 10)
+      thisGraph.current.zoomToFit(0, height / 10)
     }, 1)
   }, [height, width])
 
   return (
     <>
       <ForceGraph2D
-        ref={graphRef}
+        ref={thisGraph}
         width={width}
         height={height}
         graphData={data}
@@ -222,25 +218,19 @@ export default function GraphView({ rawData }) {
         nodeRelSize={3}
         nodeColor={setNodeColor}
         linkColor={setLinkColor}
-        dagMode={'radialin'}
-        dagLevelDistance={200}
         onNodeHover={handleNodeHover}
         onNodeDrag={handleNodeDrag}
         onNodeDragEnd={handleNodeDragEnd}
+        // enableNodeDrag={false}
         onNodeClick={handleNodeClick}
         onBackgroundClick={handleBackgroundClick}
         onLinkClick={handleBackgroundClick}
-        linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
+        // linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
+        dagMode={'radialin'}
+        dagLevelDistance={75}
+        d3AlphaDecay={0.1}
+        // onDagError={loopNodeIds => {}}        
       />
     </>
   )
-}
-
-GraphView.propTypes = {
-  rawData: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      tags: PropTypes.arrayOf(PropTypes.string).isRequired
-    })
-  ).isRequired
 }

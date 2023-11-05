@@ -2,17 +2,14 @@ import GraphView from './components/GraphView/GraphView'
 import { useEffect, useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { Dialog, TextInput } from '@mantine/core'
-import files from './data/movies.json'
-import genObjArr from './utilities/genObjArr'
+import files from './data/files.json'
 
 export default function App() {
+  const [rawData, setRawData] = useState(files)
   const [opened, { toggle, close }] = useDisclosure(false)
   const [placeholder, setPlaceholder] = useState('')
   const [input, setInput] = useState('')
-  const [rawData, setRawData] = useState(genObjArr(files, 'name'))
   const [invalid, setInvalid] = useState(false)
-
-  const ogData = genObjArr(files, 'name')
 
   // useEffect(() => {
   //   const bodyStr = JSON.stringify({
@@ -26,6 +23,10 @@ export default function App() {
   //     },
   //     body: bodyStr
   //   })
+  // }, [])
+  
+  // useEffect(() => {
+  //   setRawData(genGraph(files, 'name'))
   // }, [])
 
   useEffect(() => {
@@ -47,13 +48,13 @@ export default function App() {
     }
   }, [toggle, close, opened, input, placeholder])
 
-  useEffect(() => {
-    if (opened) {
-      const randomFile = rawData[Math.floor(Math.random() * rawData.length)]
-      const randomTagIndex = Math.floor(Math.random() * (randomFile.tags.length - 2)) + 2
-      setPlaceholder(randomFile.tags[randomTagIndex])
-    }
-  }, [rawData, opened])
+  // useEffect(() => {
+  //   if (opened) {
+  //     const randomFile = rawData[Math.floor(Math.random() * rawData.length)]
+  //     const randomTagIndex = Math.floor(Math.random() * (randomFile.tags.length - 2)) + 2
+  //     setPlaceholder(randomFile.tags[randomTagIndex])
+  //   }
+  // }, [rawData, opened])
 
   useEffect(() => {
     setInvalid(false)
@@ -61,7 +62,7 @@ export default function App() {
 
   const handleEnter = () => {
     if (input === '') {
-      setRawData(ogData)
+      setRawData(rawData)
       return
     }
   }
