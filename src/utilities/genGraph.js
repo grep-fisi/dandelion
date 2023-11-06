@@ -22,7 +22,7 @@ function traverseObject(keys, value, entityId) {
   if (existingKey) {
     keyId = existingKey.id  
   } 
-  else {
+  else if (keys.length > 0) {
     keyId = 'k' + keyNodes.length.toString()
     keyNodes.push({
       id: keyId,
@@ -107,8 +107,10 @@ export default function genGraph(dataset, nameAttrib) {
     })
     traverseObject([], entity, entityId)
   })
+  const nodes = entityNodes.concat(primNodes).concat(keyNodes)
+  const links = entityPrimLinks.concat(primKeyLinks).concat(keyKeyLinks)
   return {
-    nodes: entityNodes.concat(primNodes).concat(keyNodes),
-    links: entityPrimLinks.concat(primKeyLinks).concat(keyKeyLinks)
+    nodes: nodes,
+    links: links
   }
 }

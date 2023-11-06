@@ -29,24 +29,24 @@ export default function App() {
   //   setRawData(genGraph(files, 'name'))
   // }, [])
 
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.ctrlKey && event.altKey && event.key === 'f') {
-        toggle()
-      } else if (event.key === 'Escape' && opened) {
-        close()
-      } else if (event.key === 'Enter' && opened) {
-        handleEnter()
-      } else if (event.key == 'Tab' && opened && input === '') {
-        event.preventDefault()
-        setInput(placeholder)
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [toggle, close, opened, input, placeholder])
+  // useEffect(() => {
+  //   function handleKeyDown(event) {
+  //     if (event.ctrlKey && event.altKey && event.key === 'f') {
+  //       toggle()
+  //     } else if (event.key === 'Escape' && opened) {
+  //       close()
+  //     } else if (event.key === 'Enter' && opened) {
+  //       handleEnter()
+  //     } else if (event.key == 'Tab' && opened && input === '') {
+  //       event.preventDefault()
+  //       setInput(placeholder)
+  //     }
+  //   }
+  //   document.addEventListener('keydown', handleKeyDown)
+  //   return () => {
+  //     document.removeEventListener('keydown', handleKeyDown)
+  //   }
+  // }, [toggle, close, opened, input, placeholder])
 
   // useEffect(() => {
   //   if (opened) {
@@ -60,12 +60,12 @@ export default function App() {
     setInvalid(false)
   }, [opened, input])
 
-  const handleEnter = () => {
-    if (input === '') {
-      setRawData(rawData)
-      return
-    }
-  }
+  // const handleEnter = () => {
+  //   if (input === '') {
+  //     setRawData(rawData)
+  //     return
+  //   }
+  // }
 
   return (
     <>

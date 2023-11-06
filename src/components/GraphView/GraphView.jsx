@@ -10,6 +10,13 @@ export default function GraphView({ rawData }) {
   const thisGraph = useRef(null)
   const mouseDown = useRef(false)
   const colors = useMantineTheme().colors
+  
+  const [hoveredNodes, setHoveredNodes] = useState(new Set())
+  const [hoveredLinks, setHoveredLinks] = useState(new Set())
+  const [clickedNodes, setClickedNodes] = useState(new Set())
+  const [clickedLinks, setClickedLinks] = useState(new Set())
+  const [focusMode, setFocusMode] = useState(false)
+  const setHoverNode = useState(null)[1]
 
   /* Interactivity */
 
@@ -30,32 +37,8 @@ export default function GraphView({ rawData }) {
 
   const data = useMemo(() => {
     const gData = genGraph(rawData, 'name')
-    console.log(gData.nodes)
-
-    gData.links.forEach((link) => {
-      const a = gData.nodes.filter((node) => node.id === link.source)
-      console.log(a)
-      // const b = gData.nodes[link.target]
-      // !a.neighbors && (a.neighbors = [])
-      // !b.neighbors && (b.neighbors = [])
-      // a.neighbors.push(b)
-      // b.neighbors.push(a)
-
-      // !a.links && (a.links = [])
-      // !b.links && (b.links = [])
-      // a.links.push(link)
-      // b.links.push(link)  
-    })
-
     return gData
   }, [rawData])
-
-  const [hoveredNodes, setHoveredNodes] = useState(new Set())
-  const [hoveredLinks, setHoveredLinks] = useState(new Set())
-  const [clickedNodes, setClickedNodes] = useState(new Set())
-  const [clickedLinks, setClickedLinks] = useState(new Set())
-  const [focusMode, setFocusMode] = useState(false)
-  const setHoverNode = useState(null)[1]
 
   const updateHovered = () => {
     setHoveredNodes(hoveredNodes)
@@ -66,26 +49,25 @@ export default function GraphView({ rawData }) {
     setClickedLinks(clickedLinks)
   }
 
-  const addNode = (node, nodeSet, linkSet) => {
+  const updateNodeSet = (node, nodeSet, linkSet, action) => {
     if (node) {
-      nodeSet.add(node)
-      if (node.neighbors) {
-        node.neighbors.forEach((neighbor) => nodeSet.add(neighbor))
+      if (action === 'add') {
+        nodeSet.add(node);
+      } else if (action === 'delete') {
+        nodeSet.delete(node);
       }
+  
+      // Update node neighbors to nodeSet
       if (node.links) {
-        node.links.forEach((link) => linkSet.add(link))
-      }
-    }
-  }
-
-  const delNode = (node, nodeSet, linkSet) => {
-    if (node) {
-      nodeSet.delete(node)
-      if (node.neighbors) {
-        node.neighbors.forEach((neighbor) => nodeSet.delete(neighbor))
-      }
-      if (node.links) {
-        node.links.forEach((link) => linkSet.delete(link))
+        node.links.forEach((link) => {
+          if (action === 'add') {
+            linkSet.add(link);
+            updateNodeSet(link.target, nodeSet, linkSet, action);
+          } else if (action === 'delete') {
+            linkSet.delete(link);
+            updateNodeSet(link.target, nodeSet, linkSet, action);
+          }
+        });
       }
     }
   }
@@ -96,14 +78,14 @@ export default function GraphView({ rawData }) {
       hoveredLinks.clear()
     }
 
-    addNode(node, hoveredNodes, hoveredLinks)
+    updateNodeSet(node, hoveredNodes, hoveredLinks, 'add');
 
     setHoverNode(node || null)
     updateHovered()
   }
 
   const handleNodeDrag = (node) => {
-    addNode(node, hoveredNodes, hoveredLinks)
+    updateNodeSet(node, hoveredNodes, hoveredLinks, 'add');
   }
 
   const handleNodeDragEnd = () => {
@@ -116,12 +98,13 @@ export default function GraphView({ rawData }) {
       setFocusMode(true)
     }
     if (clickedNodes.has(node)) {
-      delNode(node, clickedNodes, clickedLinks)
+      updateNodeSet(node, clickedNodes, clickedLinks, 'delete');
       if (clickedNodes.size === 0) {
         setFocusMode(false)
       }
     } else {
-      addNode(node, clickedNodes, clickedLinks)
+      updateNodeSet(node, clickedNodes, clickedLinks, 'add');
+
     }
     updateClicked()
   }
@@ -184,17 +167,16 @@ export default function GraphView({ rawData }) {
   }
 
   const setLinkColor = (link) => {
+    if (hoveredLinks.has(link)) {
+      return colors.main[0]
+    }
+    if (focusMode) {
+      if (clickedLinks.has(link)) {
+        return colors.dark[3]
+      }
+      return colors.dark[5]
+    }
     return colors.dark[5]
-    // if (hoveredLinks.has(link)) {
-    //   return colors.main[0]
-    // }
-    // if (focusMode) {
-    //   if (clickedLinks.has(link)) {
-    //     return colors.dark[3]
-    //   }
-    //   return colors.dark[5]
-    // }
-    // return colors.dark[3]
   }
 
   /* Zoom to fit on data change */
@@ -216,12 +198,11 @@ export default function GraphView({ rawData }) {
         linkCurvature={'curvature'}
         backgroundColor={'#ffffff0'}
         nodeRelSize={3}
-        nodeColor={setNodeColor}
+        nodeColor={setNodeColor} 
         linkColor={setLinkColor}
         onNodeHover={handleNodeHover}
         onNodeDrag={handleNodeDrag}
         onNodeDragEnd={handleNodeDragEnd}
-        // enableNodeDrag={false}
         onNodeClick={handleNodeClick}
         onBackgroundClick={handleBackgroundClick}
         onLinkClick={handleBackgroundClick}
@@ -229,7 +210,6 @@ export default function GraphView({ rawData }) {
         dagMode={'radialin'}
         dagLevelDistance={75}
         d3AlphaDecay={0.1}
-        // onDagError={loopNodeIds => {}}        
       />
     </>
   )
