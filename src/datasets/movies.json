@@ -4,7 +4,9 @@
     "name": "The Shawshank Redemption",
     "year": "1994",
     "imdb_rating": "9.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Frank Darabont"
   },
   {
@@ -12,7 +14,10 @@
     "name": "The Godfather",
     "year": "1972",
     "imdb_rating": "9.2",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Francis Ford Coppola"
   },
   {
@@ -20,7 +25,11 @@
     "name": "The Dark Knight",
     "year": "2008",
     "imdb_rating": "9.0",
-    "genre": ["Action","Crime","Drama"],
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -28,7 +37,10 @@
     "name": "The Godfather Part II",
     "year": "1974",
     "imdb_rating": "9.0",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Francis Ford Coppola"
   },
   {
@@ -36,7 +48,10 @@
     "name": "12 Angry Men",
     "year": "1957",
     "imdb_rating": "9.0",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Sidney Lumet"
   },
   {
@@ -44,7 +59,11 @@
     "name": "Schindler's List",
     "year": "1993",
     "imdb_rating": "9.0",
-    "genre": ["Biography","Drama","History"],
+    "genre": [
+      "Biography",
+      "Drama",
+      "History"
+    ],
     "director_name": "Steven Spielberg"
   },
   {
@@ -52,7 +71,11 @@
     "name": "The Lord of the Rings: The Return of the King",
     "year": "2003",
     "imdb_rating": "9.0",
-    "genre": ["Action","Adventure","Drama"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
     "director_name": "Peter Jackson"
   },
   {
@@ -60,7 +83,10 @@
     "name": "Pulp Fiction",
     "year": "1994",
     "imdb_rating": "8.9",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Quentin Tarantino"
   },
   {
@@ -68,7 +94,11 @@
     "name": "The Lord of the Rings: The Fellowship of the Ring",
     "year": "2001",
     "imdb_rating": "8.8",
-    "genre": ["Action","Adventure","Drama"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
     "director_name": "Peter Jackson"
   },
   {
@@ -76,7 +106,10 @@
     "name": "Il buono, il brutto, il cattivo",
     "year": "1966",
     "imdb_rating": "8.8",
-    "genre": ["Adventure","Western"],
+    "genre": [
+      "Adventure",
+      "Western"
+    ],
     "director_name": "Sergio Leone"
   },
   {
@@ -84,7 +117,10 @@
     "name": "Forrest Gump",
     "year": "1994",
     "imdb_rating": "8.8",
-    "genre": ["Drama","Romance"],
+    "genre": [
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Robert Zemeckis"
   },
   {
@@ -92,7 +128,9 @@
     "name": "Fight Club",
     "year": "1999",
     "imdb_rating": "8.8",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "David Fincher"
   },
   {
@@ -100,7 +138,11 @@
     "name": "Inception",
     "year": "2010",
     "imdb_rating": "8.8",
-    "genre": ["Action","Adventure","Sci-Fi"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Sci-Fi"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -108,7 +150,11 @@
     "name": "The Lord of the Rings: The Two Towers",
     "year": "2002",
     "imdb_rating": "8.8",
-    "genre": ["Action","Adventure","Drama"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
     "director_name": "Peter Jackson"
   },
   {
@@ -116,7 +162,11 @@
     "name": "The Empire Strikes Back",
     "year": "1980",
     "imdb_rating": "8.7",
-    "genre": ["Action","Adventure","Fantasy"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
     "director_name": "Irvin Kershner"
   },
   {
@@ -124,15 +174,25 @@
     "name": "The Matrix",
     "year": "1999",
     "imdb_rating": "8.7",
-    "genre": ["Action","Sci-Fi"],
-    "director_name": ["Lana Wachowski","Lilly Wachowski"]
+    "genre": [
+      "Action",
+      "Sci-Fi"
+    ],
+    "director_name": [
+      "Lana Wachowski",
+      "Lilly Wachowski"
+    ]
   },
   {
     "id": "tt0099685",
     "name": "Goodfellas",
     "year": "1990",
     "imdb_rating": "8.7",
-    "genre": ["Biography","Crime","Drama"],
+    "genre": [
+      "Biography",
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Martin Scorsese"
   },
   {
@@ -140,7 +200,9 @@
     "name": "One Flew Over the Cuckoo's Nest",
     "year": "1975",
     "imdb_rating": "8.7",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Milos Forman"
   },
   {
@@ -148,7 +210,11 @@
     "name": "Se7en",
     "year": "1995",
     "imdb_rating": "8.6",
-    "genre": ["Crime","Drama","Mystery"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "David Fincher"
   },
   {
@@ -156,7 +222,10 @@
     "name": "Shichinin no samurai",
     "year": "1954",
     "imdb_rating": "8.6",
-    "genre": ["Action","Drama"],
+    "genre": [
+      "Action",
+      "Drama"
+    ],
     "director_name": "Akira Kurosawa"
   },
   {
@@ -164,7 +233,11 @@
     "name": "It's a Wonderful Life",
     "year": "1946",
     "imdb_rating": "8.6",
-    "genre": ["Drama","Family","Fantasy"],
+    "genre": [
+      "Drama",
+      "Family",
+      "Fantasy"
+    ],
     "director_name": "Frank Capra"
   },
   {
@@ -172,7 +245,11 @@
     "name": "The Silence of the Lambs",
     "year": "1991",
     "imdb_rating": "8.6",
-    "genre": ["Crime","Drama","Thriller"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
     "director_name": "Jonathan Demme"
   },
   {
@@ -180,15 +257,24 @@
     "name": "Cidade de Deus",
     "year": "2002",
     "imdb_rating": "8.6",
-    "genre": ["Crime","Drama"],
-    "director_name": ["Fernando Meirelles","Kátia Lund"]
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
+    "director_name": [
+      "Fernando Meirelles",
+      "Kátia Lund"
+    ]
   },
   {
     "id": "tt0120815",
     "name": "Saving Private Ryan",
     "year": "1998",
     "imdb_rating": "8.6",
-    "genre": ["Drama","War"],
+    "genre": [
+      "Drama",
+      "War"
+    ],
     "director_name": "Steven Spielberg"
   },
   {
@@ -196,7 +282,11 @@
     "name": "La vita è bella",
     "year": "1997",
     "imdb_rating": "8.6",
-    "genre": ["Comedy","Drama","Romance"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Roberto Benigni"
   },
   {
@@ -204,7 +294,11 @@
     "name": "The Green Mile",
     "year": "1999",
     "imdb_rating": "8.6",
-    "genre": ["Crime","Drama","Fantasy"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Fantasy"
+    ],
     "director_name": "Frank Darabont"
   },
   {
@@ -212,7 +306,11 @@
     "name": "Interstellar",
     "year": "2014",
     "imdb_rating": "8.6",
-    "genre": ["Adventure","Drama","Sci-Fi"],
+    "genre": [
+      "Adventure",
+      "Drama",
+      "Sci-Fi"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -220,7 +318,11 @@
     "name": "Star Wars",
     "year": "1977",
     "imdb_rating": "8.6",
-    "genre": ["Action","Adventure","Fantasy"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
     "director_name": "George Lucas"
   },
   {
@@ -228,7 +330,10 @@
     "name": "Terminator 2: Judgment Day",
     "year": "1991",
     "imdb_rating": "8.6",
-    "genre": ["Action","Sci-Fi"],
+    "genre": [
+      "Action",
+      "Sci-Fi"
+    ],
     "director_name": "James Cameron"
   },
   {
@@ -236,7 +341,11 @@
     "name": "Back to the Future",
     "year": "1985",
     "imdb_rating": "8.5",
-    "genre": ["Adventure","Comedy","Sci-Fi"],
+    "genre": [
+      "Adventure",
+      "Comedy",
+      "Sci-Fi"
+    ],
     "director_name": "Robert Zemeckis"
   },
   {
@@ -244,7 +353,11 @@
     "name": "Sen to Chihiro no kamikakushi",
     "year": "2001",
     "imdb_rating": "8.6",
-    "genre": ["Animation","Adventure","Family"],
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Family"
+    ],
     "director_name": "Hayao Miyazaki"
   },
   {
@@ -252,7 +365,11 @@
     "name": "Psycho",
     "year": "1960",
     "imdb_rating": "8.5",
-    "genre": ["Horror","Mystery","Thriller"],
+    "genre": [
+      "Horror",
+      "Mystery",
+      "Thriller"
+    ],
     "director_name": "Alfred Hitchcock"
   },
   {
@@ -260,7 +377,11 @@
     "name": "The Pianist",
     "year": "2002",
     "imdb_rating": "8.5",
-    "genre": ["Biography","Drama","Music"],
+    "genre": [
+      "Biography",
+      "Drama",
+      "Music"
+    ],
     "director_name": "Roman Polanski"
   },
   {
@@ -268,7 +389,11 @@
     "name": "Léon",
     "year": "1994",
     "imdb_rating": "8.5",
-    "genre": ["Action","Crime","Drama"],
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Luc Besson"
   },
   {
@@ -276,7 +401,11 @@
     "name": "Gisaengchung",
     "year": "2019",
     "imdb_rating": "8.5",
-    "genre": ["Comedy","Drama","Thriller"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "Thriller"
+    ],
     "director_name": "Bong Joon Ho"
   },
   {
@@ -284,15 +413,26 @@
     "name": "The Lion King",
     "year": "1994",
     "imdb_rating": "8.5",
-    "genre": ["Animation","Adventure","Drama"],
-    "director_name": ["Roger Allers","Rob Minkoff"]
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Drama"
+    ],
+    "director_name": [
+      "Roger Allers",
+      "Rob Minkoff"
+    ]
   },
   {
     "id": "tt0172495",
     "name": "Gladiator",
     "year": "2000",
     "imdb_rating": "8.5",
-    "genre": ["Action","Adventure","Drama"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
     "director_name": "Ridley Scott"
   },
   {
@@ -300,7 +440,10 @@
     "name": "American History X",
     "year": "1998",
     "imdb_rating": "8.5",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Tony Kaye"
   },
   {
@@ -308,7 +451,11 @@
     "name": "The Usual Suspects",
     "year": "1995",
     "imdb_rating": "8.5",
-    "genre": ["Crime","Drama","Mystery"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Bryan Singer"
   },
   {
@@ -316,7 +463,11 @@
     "name": "The Departed",
     "year": "2006",
     "imdb_rating": "8.5",
-    "genre": ["Crime","Drama","Thriller"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
     "director_name": "Martin Scorsese"
   },
   {
@@ -324,7 +475,11 @@
     "name": "The Prestige",
     "year": "2006",
     "imdb_rating": "8.5",
-    "genre": ["Drama","Mystery","Sci-Fi"],
+    "genre": [
+      "Drama",
+      "Mystery",
+      "Sci-Fi"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -332,7 +487,11 @@
     "name": "Casablanca",
     "year": "1942",
     "imdb_rating": "8.5",
-    "genre": ["Drama","Romance","War"],
+    "genre": [
+      "Drama",
+      "Romance",
+      "War"
+    ],
     "director_name": "Michael Curtiz"
   },
   {
@@ -340,7 +499,10 @@
     "name": "Top Gun: Maverick",
     "year": "2022",
     "imdb_rating": "8.6",
-    "genre": ["Action","Drama"],
+    "genre": [
+      "Action",
+      "Drama"
+    ],
     "director_name": "Joseph Kosinski"
   },
   {
@@ -348,7 +510,10 @@
     "name": "Whiplash",
     "year": "2014",
     "imdb_rating": "8.5",
-    "genre": ["Drama","Music"],
+    "genre": [
+      "Drama",
+      "Music"
+    ],
     "director_name": "Damien Chazelle"
   },
   {
@@ -356,15 +521,26 @@
     "name": "The Intouchables",
     "year": "2011",
     "imdb_rating": "8.5",
-    "genre": ["Biography","Comedy","Drama"],
-    "director_name": ["Olivier Nakache", "Éric Toledano"]
+    "genre": [
+      "Biography",
+      "Comedy",
+      "Drama"
+    ],
+    "director_name": [
+      "Olivier Nakache",
+      "Éric Toledano"
+    ]
   },
   {
     "id": "tt0027977",
     "name": "Modern Times",
     "year": "1936",
     "imdb_rating": "8.5",
-    "genre": ["Comedy","Drama","Romance"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Charles Chaplin"
   },
   {
@@ -372,7 +548,11 @@
     "name": "Seppuku",
     "year": "1962",
     "imdb_rating": "8.6",
-    "genre": ["Action","Drama","Mystery"],
+    "genre": [
+      "Action",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Masaki Kobayashi"
   },
   {
@@ -380,7 +560,9 @@
     "name": "Once Upon a Time in the West",
     "year": "1968",
     "imdb_rating": "8.5",
-    "genre": ["Western"],
+    "genre": [
+      "Western"
+    ],
     "director_name": "Sergio Leone"
   },
   {
@@ -388,7 +570,11 @@
     "name": "Hotaru no haka",
     "year": "1988",
     "imdb_rating": "8.5",
-    "genre": ["Animation","Drama","War"],
+    "genre": [
+      "Animation",
+      "Drama",
+      "War"
+    ],
     "director_name": "Isao Takahata"
   },
   {
@@ -396,7 +582,10 @@
     "name": "Rear Window",
     "year": "1954",
     "imdb_rating": "8.5",
-    "genre": ["Mystery","Thriller"],
+    "genre": [
+      "Mystery",
+      "Thriller"
+    ],
     "director_name": "Alfred Hitchcock"
   },
   {
@@ -404,7 +593,10 @@
     "name": "Alien",
     "year": "1979",
     "imdb_rating": "8.5",
-    "genre": ["Horror","Sci-Fi"],
+    "genre": [
+      "Horror",
+      "Sci-Fi"
+    ],
     "director_name": "Ridley Scott"
   },
   {
@@ -412,7 +604,11 @@
     "name": "City Lights",
     "year": "1931",
     "imdb_rating": "8.5",
-    "genre": ["Comedy","Drama","Romance"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Charles Chaplin"
   },
   {
@@ -420,7 +616,10 @@
     "name": "Nuovo Cinema Paradiso",
     "year": "1988",
     "imdb_rating": "8.5",
-    "genre": ["Drama","Romance"],
+    "genre": [
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Giuseppe Tornatore"
   },
   {
@@ -428,7 +627,10 @@
     "name": "Memento",
     "year": "2000",
     "imdb_rating": "8.4",
-    "genre": ["Mystery","Thriller"],
+    "genre": [
+      "Mystery",
+      "Thriller"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -436,7 +638,11 @@
     "name": "Apocalypse Now",
     "year": "1979",
     "imdb_rating": "8.5",
-    "genre": ["Drama","Mystery","War"],
+    "genre": [
+      "Drama",
+      "Mystery",
+      "War"
+    ],
     "director_name": "Francis Ford Coppola"
   },
   {
@@ -444,7 +650,10 @@
     "name": "Raiders of the Lost Ark",
     "year": "1981",
     "imdb_rating": "8.4",
-    "genre": ["Action","Adventure"],
+    "genre": [
+      "Action",
+      "Adventure"
+    ],
     "director_name": "Steven Spielberg"
   },
   {
@@ -452,7 +661,10 @@
     "name": "Django Unchained",
     "year": "2012",
     "imdb_rating": "8.4",
-    "genre": ["Drama","Western"],
+    "genre": [
+      "Drama",
+      "Western"
+    ],
     "director_name": "Quentin Tarantino"
   },
   {
@@ -460,7 +672,11 @@
     "name": "WALL·E",
     "year": "2008",
     "imdb_rating": "8.4",
-    "genre": ["Animation","Adventure","Family"],
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Family"
+    ],
     "director_name": "Andrew Stanton"
   },
   {
@@ -468,7 +684,11 @@
     "name": "The Lives of Others",
     "year": "2006",
     "imdb_rating": "8.4",
-    "genre": ["Drama","Mystery","Thriller"],
+    "genre": [
+      "Drama",
+      "Mystery",
+      "Thriller"
+    ],
     "director_name": "Florian Henckel von Donnersmarck"
   },
   {
@@ -476,7 +696,10 @@
     "name": "Sunset Blvd.",
     "year": "1950",
     "imdb_rating": "8.4",
-    "genre": ["Drama", "Film-Noir"],
+    "genre": [
+      "Drama",
+      "Film-Noir"
+    ],
     "director_name": "Billy Wilder"
   },
   {
@@ -484,7 +707,10 @@
     "name": "Paths of Glory",
     "year": "1957",
     "imdb_rating": "8.4",
-    "genre": ["Drama","War"],
+    "genre": [
+      "Drama",
+      "War"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -492,7 +718,10 @@
     "name": "The Shining",
     "year": "1980",
     "imdb_rating": "8.4",
-    "genre": ["Drama","Horror"],
+    "genre": [
+      "Drama",
+      "Horror"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -500,7 +729,11 @@
     "name": "The Great Dictator",
     "year": "1940",
     "imdb_rating": "8.4",
-    "genre": ["Comedy","Drama","War"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "War"
+    ],
     "director_name": "Charles Chaplin"
   },
   {
@@ -508,7 +741,11 @@
     "name": "Witness for the Prosecution",
     "year": "1957",
     "imdb_rating": "8.4",
-    "genre": ["Crime","Drama","Mystery"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Billy Wilder"
   },
   {
@@ -516,15 +753,26 @@
     "name": "Avengers: Infinity War",
     "year": "2018",
     "imdb_rating": "8.4",
-    "genre": ["Action","Adventure","Sci-Fi"],
-    "director_name": ["Anthony Russo","Joe Russo"]
+    "genre": [
+      "Action",
+      "Adventure",
+      "Sci-Fi"
+    ],
+    "director_name": [
+      "Anthony Russo",
+      "Joe Russo"
+    ]
   },
   {
     "id": "tt0090605",
     "name": "Aliens",
     "year": "1986",
     "imdb_rating": "8.4",
-    "genre": ["Action","Adventure","Sci-Fi"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Sci-Fi"
+    ],
     "director_name": "James Cameron"
   },
   {
@@ -532,7 +780,9 @@
     "name": "American Beauty",
     "year": "1999",
     "imdb_rating": "8.4",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Sam Mendes"
   },
   {
@@ -540,7 +790,10 @@
     "name": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
     "year": "1964",
     "imdb_rating": "8.4",
-    "genre": ["Comedy","War"],
+    "genre": [
+      "Comedy",
+      "War"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -548,15 +801,26 @@
     "name": "Spider-Man: Into the Spider-Verse",
     "year": "2018",
     "imdb_rating": "8.4",
-    "genre": ["Animation","Action","Adventure"],
-    "director_name": ["Bob Persichetti","Peter Ramsey","Rodney Rothman"]
+    "genre": [
+      "Animation",
+      "Action",
+      "Adventure"
+    ],
+    "director_name": [
+      "Bob Persichetti",
+      "Peter Ramsey",
+      "Rodney Rothman"
+    ]
   },
   {
     "id": "tt1345836",
     "name": "The Dark Knight Rises",
     "year": "2012",
     "imdb_rating": "8.4",
-    "genre": ["Action","Drama"],
+    "genre": [
+      "Action",
+      "Drama"
+    ],
     "director_name": "Christopher Nolan"
   },
   {
@@ -564,7 +828,11 @@
     "name": "Oldeuboi",
     "year": "2003",
     "imdb_rating": "8.4",
-    "genre": ["Action","Drama","Mystery"],
+    "genre": [
+      "Action",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Park Chan-wook"
   },
   {
@@ -572,7 +840,11 @@
     "name": "Joker",
     "year": "2019",
     "imdb_rating": "8.4",
-    "genre": ["Crime","Drama","Thriller"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
     "director_name": "Todd Phillips"
   },
   {
@@ -580,7 +852,11 @@
     "name": "Amadeus",
     "year": "1984",
     "imdb_rating": "8.4",
-    "genre": ["Biography","Drama","Music"],
+    "genre": [
+      "Biography",
+      "Drama",
+      "Music"
+    ],
     "director_name": "Milos Forman"
   },
   {
@@ -588,7 +864,11 @@
     "name": "Braveheart",
     "year": "1995",
     "imdb_rating": "8.4",
-    "genre": ["Biography","Drama","History"],
+    "genre": [
+      "Biography",
+      "Drama",
+      "History"
+    ],
     "director_name": "Mel Gibson"
   },
   {
@@ -596,7 +876,11 @@
     "name": "Toy Story",
     "year": "1995",
     "imdb_rating": "8.3",
-    "genre": ["Animation","Adventure","Comedy"],
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Comedy"
+    ],
     "director_name": "John Lasseter"
   },
   {
@@ -604,15 +888,25 @@
     "name": "Coco",
     "year": "2017",
     "imdb_rating": "8.4",
-    "genre": ["Animation","Adventure","Comedy"],
-    "director_name": ["Lee Unkrich","Adrian Molina"]
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Comedy"
+    ],
+    "director_name": [
+      "Lee Unkrich",
+      "Adrian Molina"
+    ]
   },
   {
     "id": "tt0082096",
     "name": "Das Boot",
     "year": "1981",
     "imdb_rating": "8.4",
-    "genre": ["Drama","War"],
+    "genre": [
+      "Drama",
+      "War"
+    ],
     "director_name": "Wolfgang Petersen"
   },
   {
@@ -620,7 +914,11 @@
     "name": "Inglourious Basterds",
     "year": "2009",
     "imdb_rating": "8.3",
-    "genre": ["Adventure","Drama","War"],
+    "genre": [
+      "Adventure",
+      "Drama",
+      "War"
+    ],
     "director_name": "Quentin Tarantino"
   },
   {
@@ -628,7 +926,11 @@
     "name": "Mononoke-hime",
     "year": "1997",
     "imdb_rating": "8.4",
-    "genre": ["Animation","Adventure","Fantasy"],
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Fantasy"
+    ],
     "director_name": "Hayao Miyazaki"
   },
   {
@@ -636,15 +938,25 @@
     "name": "Avengers: Endgame",
     "year": "2019",
     "imdb_rating": "8.4",
-    "genre": ["Action","Adventure","Drama"],
-    "director_name": ["Anthony Russo","Joe Russo"]
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
+    "director_name": [
+      "Anthony Russo",
+      "Joe Russo"
+    ]
   },
   {
     "id": "tt0087843",
     "name": "Once Upon a Time in America",
     "year": "1984",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Sergio Leone"
   },
   {
@@ -652,7 +964,10 @@
     "name": "Good Will Hunting",
     "year": "1997",
     "imdb_rating": "8.3",
-    "genre": ["Drama","Romance"],
+    "genre": [
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Gus Van Sant"
   },
   {
@@ -660,7 +975,9 @@
     "name": "Requiem for a Dream",
     "year": "2000",
     "imdb_rating": "8.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Darren Aronofsky"
   },
   {
@@ -668,7 +985,11 @@
     "name": "Toy Story 3",
     "year": "2010",
     "imdb_rating": "8.3",
-    "genre": ["Animation","Adventure","Comedy"],
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Comedy"
+    ],
     "director_name": "Lee Unkrich"
   },
   {
@@ -676,7 +997,11 @@
     "name": "Kimi no na wa.",
     "year": "2016",
     "imdb_rating": "8.4",
-    "genre": ["Animation","Drama","Fantasy"],
+    "genre": [
+      "Animation",
+      "Drama",
+      "Fantasy"
+    ],
     "director_name": "Makoto Shinkai"
   },
   {
@@ -684,15 +1009,25 @@
     "name": "Singin' in the Rain",
     "year": "1952",
     "imdb_rating": "8.3",
-    "genre": ["Comedy","Musical","Romance"],
-    "director_name": ["Stanley Donen","Gene Kelly"]
+    "genre": [
+      "Comedy",
+      "Musical",
+      "Romance"
+    ],
+    "director_name": [
+      "Stanley Donen",
+      "Gene Kelly"
+    ]
   },
   {
     "id": "tt1187043",
     "name": "3 Idiots",
     "year": "2009",
     "imdb_rating": "8.4",
-    "genre": ["Comedy","Drama"],
+    "genre": [
+      "Comedy",
+      "Drama"
+    ],
     "director_name": "Rajkumar Hirani"
   },
   {
@@ -700,7 +1035,11 @@
     "name": "Star Wars: Episode VI - Return of the Jedi",
     "year": "1983",
     "imdb_rating": "8.3",
-    "genre": ["Action","Adventure","Fantasy"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
     "director_name": "Richard Marquand"
   },
   {
@@ -708,7 +1047,10 @@
     "name": "2001: A Space Odyssey",
     "year": "1968",
     "imdb_rating": "8.3",
-    "genre": ["Adventure","Sci-Fi"],
+    "genre": [
+      "Adventure",
+      "Sci-Fi"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -716,7 +1058,11 @@
     "name": "Eternal Sunshine of the Spotless Mind",
     "year": "2004",
     "imdb_rating": "8.3",
-    "genre": ["Drama","Romance","Sci-Fi"],
+    "genre": [
+      "Drama",
+      "Romance",
+      "Sci-Fi"
+    ],
     "director_name": "Michel Gondry"
   },
   {
@@ -724,7 +1070,11 @@
     "name": "Reservoir Dogs",
     "year": "1992",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Drama","Thriller"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
     "director_name": "Quentin Tarantino"
   },
   {
@@ -732,7 +1082,11 @@
     "name": "Tengoku to jigoku",
     "year": "1963",
     "imdb_rating": "8.4",
-    "genre": ["Crime","Drama","Mystery"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Akira Kurosawa"
   },
   {
@@ -740,7 +1094,9 @@
     "name": "Capharnaüm",
     "year": "2018",
     "imdb_rating": "8.4",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Nadine Labaki"
   },
   {
@@ -748,7 +1104,10 @@
     "name": "Citizen Kane",
     "year": "1941",
     "imdb_rating": "8.3",
-    "genre": ["Drama","Mystery"],
+    "genre": [
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Orson Welles"
   },
   {
@@ -756,7 +1115,11 @@
     "name": "Lawrence of Arabia",
     "year": "1962",
     "imdb_rating": "8.3",
-    "genre": ["Adventure","Biography","Drama"],
+    "genre": [
+      "Adventure",
+      "Biography",
+      "Drama"
+    ],
     "director_name": "David Lean"
   },
   {
@@ -764,7 +1127,9 @@
     "name": "Jagten",
     "year": "2012",
     "imdb_rating": "8.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Thomas Vinterberg"
   },
   {
@@ -772,7 +1137,11 @@
     "name": "North by Northwest",
     "year": "1959",
     "imdb_rating": "8.3",
-    "genre": ["Action","Adventure","Mystery"],
+    "genre": [
+      "Action",
+      "Adventure",
+      "Mystery"
+    ],
     "director_name": "Alfred Hitchcock"
   },
   {
@@ -780,7 +1149,11 @@
     "name": "M - Eine Stadt sucht einen Mörder",
     "year": "1931",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Mystery","Thriller"],
+    "genre": [
+      "Crime",
+      "Mystery",
+      "Thriller"
+    ],
     "director_name": "Fritz Lang"
   },
   {
@@ -788,7 +1161,11 @@
     "name": "Vertigo",
     "year": "1958",
     "imdb_rating": "8.3",
-    "genre": ["Mystery","Romance","Thriller"],
+    "genre": [
+      "Mystery",
+      "Romance",
+      "Thriller"
+    ],
     "director_name": "Alfred Hitchcock"
   },
   {
@@ -796,7 +1173,10 @@
     "name": "Le fabuleux destin d'Amélie Poulain",
     "year": "2001",
     "imdb_rating": "8.3",
-    "genre": ["Comedy","Romance"],
+    "genre": [
+      "Comedy",
+      "Romance"
+    ],
     "director_name": "Jean-Pierre Jeunet"
   },
   {
@@ -804,7 +1184,10 @@
     "name": "A Clockwork Orange",
     "year": "1971",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Sci-Fi"],
+    "genre": [
+      "Crime",
+      "Sci-Fi"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -812,7 +1195,11 @@
     "name": "Idi i smotri",
     "year": "1985",
     "imdb_rating": "8.4",
-    "genre": ["Drama","Thriller","War"],
+    "genre": [
+      "Drama",
+      "Thriller",
+      "War"
+    ],
     "director_name": "Elem Klimov"
   },
   {
@@ -820,7 +1207,10 @@
     "name": "Full Metal Jacket",
     "year": "1987",
     "imdb_rating": "8.3",
-    "genre": ["Drama","War"],
+    "genre": [
+      "Drama",
+      "War"
+    ],
     "director_name": "Stanley Kubrick"
   },
   {
@@ -828,7 +1218,11 @@
     "name": "Double Indemnity",
     "year": "1944",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Drama","Film-Noir"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Film-Noir"
+    ],
     "director_name": "Billy Wilder"
   },
   {
@@ -836,7 +1230,11 @@
     "name": "The Apartment",
     "year": "1960",
     "imdb_rating": "8.3",
-    "genre": ["Comedy","Drama","Romance"],
+    "genre": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
     "director_name": "Billy Wilder"
   },
   {
@@ -844,7 +1242,10 @@
     "name": "Scarface",
     "year": "1983",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Brian De Palma"
   },
   {
@@ -852,7 +1253,9 @@
     "name": "Ikiru",
     "year": "1952",
     "imdb_rating": "8.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Akira Kurosawa"
   },
   {
@@ -860,7 +1263,11 @@
     "name": "The Sting",
     "year": "1973",
     "imdb_rating": "8.3",
-    "genre": ["Comedy","Crime","Drama"],
+    "genre": [
+      "Comedy",
+      "Crime",
+      "Drama"
+    ],
     "director_name": "George Roy Hill"
   },
   {
@@ -868,7 +1275,10 @@
     "name": "To Kill a Mockingbird",
     "year": "1962",
     "imdb_rating": "8.3",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Robert Mulligan"
   },
   {
@@ -876,7 +1286,10 @@
     "name": "Taxi Driver",
     "year": "1976",
     "imdb_rating": "8.2",
-    "genre": ["Crime","Drama"],
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Martin Scorsese"
   },
   {
@@ -884,7 +1297,11 @@
     "name": "L.A. Confidential",
     "year": "1997",
     "imdb_rating": "8.2",
-    "genre": ["Crime","Drama","Mystery"],
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Curtis Hanson"
   },
   {
@@ -892,15 +1309,26 @@
     "name": "Up",
     "year": "2009",
     "imdb_rating": "8.3",
-    "genre": ["Animation","Adventure","Comedy"],
-    "director_name": ["Pete Docter","Bob Peterson"]
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Comedy"
+    ],
+    "director_name": [
+      "Pete Docter",
+      "Bob Peterson"
+    ]
   },
   {
     "id": "tt0113277",
     "name": "Heat",
     "year": "1995",
     "imdb_rating": "8.3",
-    "genre": ["Action","Crime","Drama"],
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
     "director_name": "Michael Mann"
   },
   {
@@ -908,7 +1336,11 @@
     "name": "Hamilton",
     "year": "2020",
     "imdb_rating": "8.4",
-    "genre": ["Biography","Drama","History"],
+    "genre": [
+      "Biography",
+      "Drama",
+      "History"
+    ],
     "director_name": "Thomas Kail"
   },
   {
@@ -916,7 +1348,10 @@
     "name": "Metropolis",
     "year": "1927",
     "imdb_rating": "8.3",
-    "genre": ["Drama","Sci-Fi"],
+    "genre": [
+      "Drama",
+      "Sci-Fi"
+    ],
     "director_name": "Fritz Lang"
   },
   {
@@ -924,7 +1359,9 @@
     "name": "Jodaeiye Nader az Simin",
     "year": "2011",
     "imdb_rating": "8.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Asghar Farhadi"
   },
   {
@@ -932,7 +1369,10 @@
     "name": "Snatch",
     "year": "2000",
     "imdb_rating": "8.3",
-    "genre": ["Comedy","Crime"],
+    "genre": [
+      "Comedy",
+      "Crime"
+    ],
     "director_name": "Guy Ritchie"
   },
   {
@@ -940,7 +1380,10 @@
     "name": "Die Hard",
     "year": "1988",
     "imdb_rating": "8.2",
-    "genre": ["Action","Thriller"],
+    "genre": [
+      "Action",
+      "Thriller"
+    ],
     "director_name": "John McTiernan"
   },
   {
@@ -948,7 +1391,10 @@
     "name": "Incendies",
     "year": "2010",
     "imdb_rating": "8.3",
-    "genre": ["Drama","Mystery"],
+    "genre": [
+      "Drama",
+      "Mystery"
+    ],
     "director_name": "Denis Villeneuve"
   },
   {
@@ -956,7 +1402,10 @@
     "name": "Indiana Jones and the Last Crusade",
     "year": "1989",
     "imdb_rating": "8.2",
-    "genre": ["Action","Adventure"],
+    "genre": [
+      "Action",
+      "Adventure"
+    ],
     "director_name": "Steven Spielberg"
   },
   {
@@ -964,7 +1413,9 @@
     "name": "Ladri di biciclette",
     "year": "1948",
     "imdb_rating": "8.3",
-    "genre": ["Drama"],
+    "genre": [
+      "Drama"
+    ],
     "director_name": "Vittorio De Sica"
   },
   {
@@ -972,7 +1423,11 @@
     "name": "1917",
     "year": "2019",
     "imdb_rating": "8.2",
-    "genre": ["Action","Drama","War"],
+    "genre": [
+      "Action",
+      "Drama",
+      "War"
+    ],
     "director_name": "Sam Mendes"
   }
 ]

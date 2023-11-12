@@ -1,9 +1,12 @@
 import ForceGraph2D from 'react-force-graph-2d'
+import { forceCollide } from 'd3-force'
+import { forceCluster } from 'd3-force-cluster'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useMantineTheme } from '@mantine/core'
 import { useViewportSize } from '@mantine/hooks'
-import genGraph from '../../utilities/genGraph'
+import genGraph from '../../processing/genGraph'
+
+const NODE_REL_SIZE = 4
 
 export default function GraphView({ rawData }) {
   const { height, width } = useViewportSize()
@@ -21,6 +24,20 @@ export default function GraphView({ rawData }) {
   /* Interactivity */
 
   useEffect(() => {
+    thisGraph.current.d3Force('collide', forceCollide(function (d) { 
+      return d.entities ? 
+        Math.sqrt((24 * NODE_REL_SIZE * d.entities.length) / Math.PI) 
+        : NODE_REL_SIZE })
+    )
+
+    thisGraph.current.d3Force('cluster', forceCluster()
+      .centers((d) => {
+        const parent = d.parent ? data.nodes.find((node) => node.id === d.parent) : null
+        console.log(parent)
+        return parent
+      })
+      .strength(10))
+    
     function handleMouseDown() {
       mouseDown.current = true
     }
@@ -57,22 +74,38 @@ export default function GraphView({ rawData }) {
         nodeSet.delete(node);
       }
   
-      // Update node neighbors to nodeSet
-      if (node.links) {
-        node.links.forEach((link) => {
+      // Update node neighbors to nodeSet and their links to linkSet
+      if (node.primitives) {
+        node.primitives.forEach((primitiveId) => {
+          const primitiveNode = data.nodes.find((node) => node.id === primitiveId)
+          const entityPrimLink = data.links.find((link) => link.nodePairId === node.id + '_' + primitiveId)
           if (action === 'add') {
-            linkSet.add(link);
-            updateNodeSet(link.target, nodeSet, linkSet, action);
+            nodeSet.add(primitiveNode);
+            linkSet.add(entityPrimLink);
           } else if (action === 'delete') {
-            linkSet.delete(link);
-            updateNodeSet(link.target, nodeSet, linkSet, action);
+            nodeSet.delete(primitiveNode);
+            linkSet.delete(entityPrimLink);
           }
-        });
+        })
+      }
+      if (node.entities) {
+        node.entities.forEach((entity) => {
+          const entityNode = data.nodes.find((node) => node.id === entity)
+          const entityPrimLink = data.links.find((link) => link.nodePairId === entity + '_' + node.id)
+          if (action === 'add') {
+            nodeSet.add(entityNode);
+            linkSet.add(entityPrimLink);
+          } else if (action === 'delete') {
+            nodeSet.delete(entityNode);
+            linkSet.delete(entityPrimLink);          
+          }
+        })
       }
     }
   }
 
   const handleNodeHover = (node) => {
+    console.log(node)
     if (!mouseDown.current) {
       hoveredNodes.clear()
       hoveredLinks.clear()
@@ -193,11 +226,12 @@ export default function GraphView({ rawData }) {
         ref={thisGraph}
         width={width}
         height={height}
-        graphData={data}
+        graphData={data} 
         autoPauseRedraw={true}
         linkCurvature={'curvature'}
         backgroundColor={'#ffffff0'}
-        nodeRelSize={3}
+        nodeRelSize={NODE_REL_SIZE}
+        nodeVal={(node) => node.entities ? node.entities.length : 1}
         nodeColor={setNodeColor} 
         linkColor={setLinkColor}
         onNodeHover={handleNodeHover}
@@ -206,10 +240,11 @@ export default function GraphView({ rawData }) {
         onNodeClick={handleNodeClick}
         onBackgroundClick={handleBackgroundClick}
         onLinkClick={handleBackgroundClick}
-        // linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
+        linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
         dagMode={'radialin'}
-        dagLevelDistance={75}
+        dagLevelDistance={150}
         d3AlphaDecay={0.1}
+        d3VelocityDecay={0.4}
       />
     </>
   )

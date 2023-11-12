@@ -2,7 +2,7 @@ import GraphView from './components/GraphView/GraphView'
 import { useEffect, useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { Dialog, TextInput } from '@mantine/core'
-import files from './data/files.json'
+import files from './datasets/files.json'
 
 export default function App() {
   const [rawData, setRawData] = useState(files)
