@@ -17,14 +17,16 @@ export default function genLinks({ entityNodes, primNodes, keyNodes }) {
   primNodes.forEach((prim) => {
     primKeyLinks.push({
       source: 
-        prim.key,
+        prim.parent,
       target: 
         prim.id,
     })
   })
 
   keyNodes.forEach((key) => {
-    if (key.parent) {
+    if (key.key) {
+      console.log(key.key)
+      console.log(key.id)
       keyKeyLinks.push({
         source: 
           key.key,
@@ -37,6 +39,6 @@ export default function genLinks({ entityNodes, primNodes, keyNodes }) {
   return {
     entityPrimLinks,
     primKeyLinks,
-    // keyKeyLinks
+    keyKeyLinks
   }
 }

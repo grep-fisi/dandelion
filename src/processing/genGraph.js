@@ -11,8 +11,8 @@ export default function genGraph(dataset, nameAttrib) {
       ...nodes.keyNodes,
     ],
     links: [
-      ...links.entityPrimLinks,
-      // ...links.primKeyLinks, 
+      // ...links.entityPrimLinks,
+      ...links.primKeyLinks, 
       // ...links.keyKeyLinks,
     ]
   }

@@ -26,6 +26,8 @@ function traverseObject(keys, value, entityId) {
       key: null,
       children: [],
       entities: [],
+      visible: false,
+      color: 'white'
     }
     // link it to its parent key
     if (keys.length > 0) {

@@ -1,5 +1,5 @@
 import ForceGraph2D from 'react-force-graph-2d'
-import { forceCollide } from 'd3-force'
+import { forceCollide, forceCenter, forceManyBody, forceX, forceY } from 'd3-force'
 import { forceCluster } from 'd3-force-cluster'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMantineTheme } from '@mantine/core'
@@ -9,6 +9,8 @@ import genGraph from '../../processing/genGraph'
 const NODE_REL_SIZE = 4
 
 export default function GraphView({ rawData }) {
+
+
   const { height, width } = useViewportSize()
   const thisGraph = useRef(null)
   const mouseDown = useRef(false)
@@ -21,22 +23,39 @@ export default function GraphView({ rawData }) {
   const [focusMode, setFocusMode] = useState(false)
   const setHoverNode = useState(null)[1]
 
-  /* Interactivity */
+  const data = useMemo(() => {
+    const gData = genGraph(rawData, 'name')
+    return gData
+  }, [rawData])
 
+  const primParents = (d) => {
+    if (d.entities && d.entities.length > 0) {
+      return -250
+    }
+    if (d.primitives) {
+      return -50
+    }
+    return 0
+  }
+
+
+  // find a random node to center the entity nodes on
+  
+  /* Interactivity */
+  
   useEffect(() => {
+    // const ENTITY_CENTER = data.nodes.find((node) => node.entities)
+    thisGraph.current.d3Force('centerX', forceX(width / 2))
+    thisGraph.current.d3Force('centerY', forceY(height / 2))
+    
+
     thisGraph.current.d3Force('collide', forceCollide(function (d) { 
       return d.entities ? 
         Math.sqrt((24 * NODE_REL_SIZE * d.entities.length) / Math.PI) 
         : NODE_REL_SIZE })
     )
 
-    thisGraph.current.d3Force('cluster', forceCluster()
-      .centers((d) => {
-        const parent = d.parent ? data.nodes.find((node) => node.id === d.parent) : null
-        console.log(parent)
-        return parent
-      })
-      .strength(10))
+    thisGraph.current.d3Force('charge', forceManyBody().strength(primParents))
     
     function handleMouseDown() {
       mouseDown.current = true
@@ -52,10 +71,6 @@ export default function GraphView({ rawData }) {
     }
   }, [])
 
-  const data = useMemo(() => {
-    const gData = genGraph(rawData, 'name')
-    return gData
-  }, [rawData])
 
   const updateHovered = () => {
     setHoveredNodes(hoveredNodes)
@@ -231,8 +246,8 @@ export default function GraphView({ rawData }) {
         linkCurvature={'curvature'}
         backgroundColor={'#ffffff0'}
         nodeRelSize={NODE_REL_SIZE}
-        nodeVal={(node) => node.entities ? node.entities.length : 1}
-        nodeColor={setNodeColor} 
+        nodeVal={(node) => (node.entities && node.entities.length > 0) ? node.entities.length : 10}
+        nodeColor={(node) => node.color || setNodeColor(node)} 
         linkColor={setLinkColor}
         onNodeHover={handleNodeHover}
         onNodeDrag={handleNodeDrag}
@@ -240,9 +255,10 @@ export default function GraphView({ rawData }) {
         onNodeClick={handleNodeClick}
         onBackgroundClick={handleBackgroundClick}
         onLinkClick={handleBackgroundClick}
-        linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
-        dagMode={'radialin'}
-        dagLevelDistance={150}
+        nodeVisibility={(node) => node.visible !== false}
+        // linkVisibility={(link) => hoveredLinks.has(link) || clickedLinks.has(link)}
+        // dagMode={'radialin'}
+        // dagLevelDistance={150}
         d3AlphaDecay={0.1}
         d3VelocityDecay={0.4}
       />
