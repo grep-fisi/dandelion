@@ -32,7 +32,7 @@ export default function GraphView({ rawData }) {
     if (d.primitives) {
       return -d.primitives.length * 100
     }
-    return -250
+    return -200
   }
   
   /* Interactivity */

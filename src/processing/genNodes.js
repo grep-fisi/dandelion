@@ -13,10 +13,6 @@ function traverseObject(keys, value, entityId) {
   const existingKey = keyNodes.find((node) => arraysEqual(node.keys, keys))
   if (existingKey) {
     keyId = existingKey.id  
-  // } 
-  // else if (keys.length === 0) {
-  //   /* Root key */
-  //   keyNodes.push({ id: 'k0', name: 'Root', keys: [], key: null, children: [] })
   } else if (keys.length > 0) {
     keyId = 'k' + keyNodes.length.toString()
     let keyNode = {
@@ -94,7 +90,7 @@ function traverseObject(keys, value, entityId) {
   return branch
 }
 
-export default function genNodes(dataset, nameAttrib, colors) {
+export default function genNodes(dataset, nameAttrib) {
   entityNodes = []
   primNodes = []
   keyNodes = [{
@@ -105,6 +101,7 @@ export default function genNodes(dataset, nameAttrib, colors) {
     children: [],
     entities: [],
     visible: false,
+    value: 0.01,
   }]
   
   dataset.forEach((entity) => {
@@ -117,7 +114,6 @@ export default function genNodes(dataset, nameAttrib, colors) {
     })
     traverseObject([], entity, entityId)
   })
-
 
   return {
     entityNodes,
