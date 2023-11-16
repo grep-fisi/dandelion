@@ -23,18 +23,17 @@ function traverseObject(keys, value, entityId) {
       id: keyId,
       name: keys[keys.length - 1],
       keys: keys,
-      key: null,
+      parent: null,
       children: [],
       entities: [],
-      visible: false,
-      color: 'white'
+      color: '#353535'
     }
     // link it to its parent key
     if (keys.length > 0) {
       const parentKey = keyNodes.find((node) => arraysEqual(node.keys, keys.slice(0, -1)))
       if (parentKey) {
         // add reference to parent in child
-        keyNode.key = parentKey.id
+        keyNode.parent = parentKey.id
         // add reference to child in parent
         parentKey.children = parentKey.children ? parentKey.children.concat(keyId) : [keyId]
       }
@@ -95,20 +94,30 @@ function traverseObject(keys, value, entityId) {
   return branch
 }
 
-export default function genNodes(dataset, nameAttrib) {
+export default function genNodes(dataset, nameAttrib, colors) {
   entityNodes = []
   primNodes = []
-  keyNodes = []
+  keyNodes = [{
+    id: 'root',
+    name: 'Root',
+    keys: [],
+    parent: null,
+    children: [],
+    entities: [],
+    visible: false,
+  }]
   
   dataset.forEach((entity) => {
     const entityId = 'e' + entityNodes.length.toString()
     entityNodes.push({
       id: entityId,
       name: entity[nameAttrib] ? entity[nameAttrib] : `Unnamed (ID: ${entityId})`,
+      value: 10,
       primitives: []
     })
     traverseObject([], entity, entityId)
   })
+
 
   return {
     entityNodes,
