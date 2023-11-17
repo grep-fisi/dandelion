@@ -22,7 +22,6 @@ function traverseObject(keys, value, entityId) {
       parent: null,
       children: [],
       entities: [],
-      color: '#353535'
     }
     // link it to its parent key
     if (keys.length > 0) {
@@ -109,10 +108,37 @@ export default function genNodes(dataset, nameAttrib) {
     entityNodes.push({
       id: entityId,
       name: entity[nameAttrib] ? entity[nameAttrib] : `Unnamed (ID: ${entityId})`,
-      value: 10,
+      value: 5,
+      color: 'hsl(0, 0%, 25%)',
       primitives: []
     })
     traverseObject([], entity, entityId)
+  })
+
+  const maxNest = primNodes.map((prim) => prim.keys.length).reduce((a, b) => Math.max(a, b))
+  let i = 1
+  while (i < maxNest + 1) {
+    const keyNest = keyNodes.filter((keyNode) => keyNode.keys.length === i)
+    if (i === 1) {
+      keyNest.forEach((mainKey, index) =>
+        {
+          mainKey.color = `hsl(${360 / keyNest.length * index}, 20%, 25%)`
+        }
+      )
+    }
+    else {
+      keyNest.forEach((keyNode) => {
+        const parentKey = keyNodes.find((node) => node.id === keyNode.parent)
+        keyNode.color = parentKey.color
+      })
+    }
+    i++
+  }
+
+  primNodes.forEach((primNode) => {
+    const parentKey = keyNodes.find((node) => node.id === primNode.parent)
+    const hue = parentKey.color.match(/\d+/)[0]
+    primNode.color = `hsl(${hue}, 50%, 50%)`
   })
 
   return {

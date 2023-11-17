@@ -1,29 +1,17 @@
-import GraphView from './components/GraphView/GraphView'
 import { useEffect, useState } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { Dialog, TextInput } from '@mantine/core'
 import files from './datasets/files.json'
+import GraphView from './components/GraphView/GraphView'
 
 export default function App() {
   const [rawData, setRawData] = useState(files)
+
   const [opened, { toggle, close }] = useDisclosure(false)
   const [placeholder, setPlaceholder] = useState('')
+
   const [input, setInput] = useState('')
   const [invalid, setInvalid] = useState(false)
-
-  // useEffect(() => {
-  //   const bodyStr = JSON.stringify({
-  //     files: ogData
-  //   })
-
-  //   fetch('http://localhost:9090/upload/', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: bodyStr
-  //   })
-  // }, [])
   
   // useEffect(() => {
   //   setRawData(genGraph(files, 'name'))
