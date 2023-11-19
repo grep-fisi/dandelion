@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react'
-import { useDisclosure } from '@mantine/hooks'
-import { Dialog, TextInput } from '@mantine/core'
 import files from './datasets/files.json'
 import GraphView from './components/GraphView/GraphView'
+import { useEffect, useState, useMemo } from 'react'
+import { useDisclosure } from '@mantine/hooks'
+import { Dialog, TextInput } from '@mantine/core'
+import genInitNodes from './processing/genInitNodes'
+import genInitLinks from './processing/genInitLinks'
 
 export default function App() {
-  const [rawData, setRawData] = useState(files)
-
-  const [opened, { toggle, close }] = useDisclosure(false)
-  const [placeholder, setPlaceholder] = useState('')
-
-  const [input, setInput] = useState('')
-  const [invalid, setInvalid] = useState(false)
+  const initNodes = useMemo(() => genInitNodes(files, 'name'), [])
+  const initLinks = genInitLinks(initNodes)
+  const [data, setData] = useState({ ...initNodes, ...initLinks })
+  // const [filterOpened, { filterToggle, filterClose }] = useDisclosure(false)
+  // const [filterPlaceholder, setFilterPlaceholder] = useState('')
+  // const [filterInput, setFilterInput] = useState('')
+  // const [filterInputInvalid, setFilterInputInvalid] = useState(false)
   
   // useEffect(() => {
   //   setRawData(genGraph(files, 'name'))
@@ -44,9 +46,9 @@ export default function App() {
   //   }
   // }, [rawData, opened])
 
-  useEffect(() => {
-    setInvalid(false)
-  }, [opened, input])
+  // useEffect(() => {
+  //   setInvalid(false)
+  // }, [opened, input])
 
   // const handleEnter = () => {
   //   if (input === '') {
@@ -57,7 +59,7 @@ export default function App() {
 
   return (
     <>
-      <Dialog
+      {/* <Dialog
         styles={{
           root: { backgroundColor: '#fff0' }
         }}
@@ -76,8 +78,8 @@ export default function App() {
           }}
           error={invalid}
         />
-      </Dialog>
-      <GraphView rawData={rawData} />
+      </Dialog> */}
+      <GraphView initData={data} />
     </>
   )
 }

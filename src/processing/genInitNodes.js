@@ -89,7 +89,7 @@ function traverseObject(keys, value, entityId) {
   return branch
 }
 
-export default function genNodes(dataset, nameAttrib) {
+export default function genInitNodes(dataset, nameAttrib) {
   entityNodes = []
   primNodes = []
   keyNodes = [{
@@ -100,7 +100,9 @@ export default function genNodes(dataset, nameAttrib) {
     children: [],
     entities: [],
     visible: false,
-    value: 0.01,
+    color: 'hsl(0, 0%, 25%)',
+    fx: 0,
+    fy: 0,
   }]
   
   dataset.forEach((entity) => {
@@ -110,7 +112,8 @@ export default function genNodes(dataset, nameAttrib) {
       name: entity[nameAttrib] ? entity[nameAttrib] : `Unnamed (ID: ${entityId})`,
       value: 5,
       color: 'hsl(0, 0%, 25%)',
-      primitives: []
+      primitives: [],
+      relationships: [],
     })
     traverseObject([], entity, entityId)
   })
@@ -139,6 +142,28 @@ export default function genNodes(dataset, nameAttrib) {
     const parentKey = keyNodes.find((node) => node.id === primNode.parent)
     const hue = parentKey.color.match(/\d+/)[0]
     primNode.color = `hsl(${hue}, 50%, 50%)`
+  })
+
+  entityNodes.forEach((entityNode) => {
+    entityNode.primitives.forEach((primitiveId) => {
+      const primitive = primNodes.find((n) => n.id === primitiveId)
+      primitive.entities.filter((e) => e !== entityNode.id).forEach((relativeId) => {
+        entityNode.relationships.find((r) => r.id === relativeId)?.sharedAttributes.push({
+          id: primitiveId,
+          name: primitive.name,
+          color: primitive.color,
+        }) ||
+        entityNode.relationships.push({
+          id: relativeId,
+          name: entityNodes.find((node) => node.id === relativeId).name,
+          sharedAttributes: [{
+            id: primitiveId,
+            name: primitive.name,
+            color: primitive.color,
+          }],
+        })
+      })
+    })
   })
 
   return {
