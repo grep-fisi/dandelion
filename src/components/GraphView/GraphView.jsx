@@ -12,20 +12,21 @@ const NO_INTERACTION = {
 
 const NODE_REL_SIZE = 7
 
-export default function GraphView({ initData }) {
-  let data = useRef({
+export default function GraphView({ rawInitData }) {
+  const initData = {
     nodes: [
-      ...initData.entityNodes,
-      ...initData.primNodes,
-      ...initData.keyNodes,
+      ...rawInitData.entityNodes,
+      ...rawInitData.primNodes,
+      ...rawInitData.keyNodes,
     ],
     links: [
-      ...initData.rootEntitiesLinks,
-      ...initData.rootKeysLinks,
-      ...initData.primKeyLinks,
-      ...initData.keyKeyLinks,
+      ...rawInitData.rootEntitiesLinks,
+      ...rawInitData.rootKeysLinks,
+      ...rawInitData.primKeyLinks,
+      ...rawInitData.keyKeyLinks,
     ]
-  }).current
+  }
+  let data = useRef(initData).current
   const [state, setState] = useState(NO_INTERACTION)
   const forceGraph = useRef(null)
   const focusMode = state.clicked !== null
@@ -38,19 +39,21 @@ export default function GraphView({ initData }) {
     forceGraph.current.d3Force('centerY', forceY(0))
     forceGraph.current.d3Force('charge', forceManyBody()
       .strength(
-        (d) => -d.primitives ? d.primitives.length * 100 : -200
+        (d) => d.primitives ? -d.primitives.length * 200 : -200
       ))
     forceGraph.current.d3Force('collide', forceCollide(
-      (d) => d.entities ? Math.sqrt((24 * NODE_REL_SIZE * d.entities.length) / Math.PI) : NODE_REL_SIZE
+      (d) => 
+        d.entities ? Math.sqrt((24 * NODE_REL_SIZE * d.entities.length) / Math.PI) : 
+        d.relationships ? Math.sqrt(NODE_REL_SIZE * d.value)
+        : NODE_REL_SIZE
     ))
   }, [])
 
   /* Event handlers */
 
   function handleNodeHover(node) {
-    console.log(node)
     setState({
-      hovered: node || null,
+      hovered: node?.id,
       clicked: state.clicked
     })
   }
@@ -64,12 +67,13 @@ export default function GraphView({ initData }) {
 
     if (clickedNode.relationships) {
       clickedNode.relationships.forEach((r) => {
+        console.log(r)
         r.sharedAttributes.forEach((a) => {
-          data.links.push({
-            source: clickedNode.id,
-            target: r.id,
-            color: a.color
-          })
+          // data.links.push({
+          //   source: clickedNode.id,
+          //   target: r.id,
+          //   color: a.color
+          // })
         })
       })
     }
@@ -88,8 +92,8 @@ export default function GraphView({ initData }) {
   }
 
   function handleBackgroundClick () {
-    data = initData
-    setState(NO_INTERACTION) 
+    data.current = initData
+    setState(NO_INTERACTION)
   }
 
   /* Styling */
@@ -134,10 +138,7 @@ export default function GraphView({ initData }) {
       return node.entities.length + 1
     }
     if (node.relationships) {
-      return node.relationships.length
-      // return node.relationships.reduce((acc, r) => {
-      //   return acc + r.sharedAttributes.length + 1
-      // })
+      return node.value / data.nodes.filter((n) => n.relationships).length
     }
     if (state.clicked[0] === 'e') {
       const clickedEntity = data.nodes.find((e) => e.id === state.clicked)

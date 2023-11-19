@@ -110,7 +110,7 @@ export default function genInitNodes(dataset, nameAttrib) {
     entityNodes.push({
       id: entityId,
       name: entity[nameAttrib] ? entity[nameAttrib] : `Unnamed (ID: ${entityId})`,
-      value: 5,
+      value: 1,
       color: 'hsl(0, 0%, 25%)',
       primitives: [],
       relationships: [],
@@ -162,6 +162,7 @@ export default function genInitNodes(dataset, nameAttrib) {
             color: primitive.color,
           }],
         })
+        entityNode.value += 1
       })
     })
   })

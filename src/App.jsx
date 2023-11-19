@@ -79,7 +79,7 @@ export default function App() {
           error={invalid}
         />
       </Dialog> */}
-      <GraphView initData={data} />
+      <GraphView rawInitData={data} />
     </>
   )
 }
