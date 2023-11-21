@@ -3,51 +3,62 @@ import { forceCollide, forceManyBody, forceX, forceY } from 'd3-force'
 import { useEffect, useRef, useState } from 'react'
 import { useViewportSize } from '@mantine/hooks'
 
-import linkCurvature from './linkCurvature'
-
 const NO_INTERACTION = {
   hovered: null,
   clicked: null
 }
 
 const NODE_REL_SIZE = 7
+const REPULSION = -250
 
-export default function GraphView({ rawInitData }) {
-  const initData = {
-    nodes: [
-      ...rawInitData.entityNodes,
-      ...rawInitData.primNodes,
-      ...rawInitData.keyNodes,
-    ],
-    links: [
-      ...rawInitData.rootEntitiesLinks,
-      ...rawInitData.rootKeysLinks,
-      ...rawInitData.primKeyLinks,
-      ...rawInitData.keyKeyLinks,
-    ]
-  }
-  let data = useRef(initData).current
-  const [state, setState] = useState(NO_INTERACTION)
+const entityValue = (entity) => {
+  let value = 1
+  entity.relationships.forEach((r) => {
+    value += r.sharedAttributes.length
+  })
+  return value
+}
+
+export default function GraphView({ data }) {
   const forceGraph = useRef(null)
-  const focusMode = state.clicked !== null
+  const [state, setState] = useState(NO_INTERACTION)
   const { height, width } = useViewportSize()
+  const findNode = (nodeId) => data.nodes.find((n) => n.id === nodeId)
 
   /* Custom forces */
 
   useEffect(() => {
     forceGraph.current.d3Force('centerX', forceX(0))
     forceGraph.current.d3Force('centerY', forceY(0))
+  })
+
+  useEffect(() => {
     forceGraph.current.d3Force('charge', forceManyBody()
       .strength(
-        (d) => d.primitives ? -d.primitives.length * 200 : -200
+        (node) => {
+          if (node.children) {
+            return REPULSION * node.children.length
+          }
+          const nodeEntities = node.entities
+          if (nodeEntities) {
+            return REPULSION * node.entities.length / 2
+          }
+          const clickedRels = findNode(state.clicked)?.relationships
+          if (clickedRels) {
+            if (state.clicked === node.id) {
+              return REPULSION * entityValue(node)
+            }
+            if (node.relationships) {
+              return REPULSION * clickedRels.find((r) => r.id === node.id).sharedAttributes.length
+            }
+          }
+          if (node.relationships) {
+            return REPULSION * entityValue(node) * 0.15
+          }
+          return REPULSION
+        }
       ))
-    forceGraph.current.d3Force('collide', forceCollide(
-      (d) => 
-        d.entities ? Math.sqrt((24 * NODE_REL_SIZE * d.entities.length) / Math.PI) : 
-        d.relationships ? Math.sqrt(NODE_REL_SIZE * d.value)
-        : NODE_REL_SIZE
-    ))
-  }, [])
+  }, [state.clicked])
 
   /* Event handlers */
 
@@ -60,24 +71,12 @@ export default function GraphView({ rawInitData }) {
 
   function handleNodeClick(clickedNode) {
     if (state.clicked === clickedNode.id) {
-      data = initData
       setState(NO_INTERACTION)
       return
     }
-
     if (clickedNode.relationships) {
-      clickedNode.relationships.forEach((r) => {
-        console.log(r)
-        r.sharedAttributes.forEach((a) => {
-          // data.links.push({
-          //   source: clickedNode.id,
-          //   target: r.id,
-          //   color: a.color
-          // })
-        })
-      })
+      forceGraph.current.d3ReheatSimulation()
     }
-    
     setState({
       hovered: state.hovered,
       clicked: clickedNode.id
@@ -92,61 +91,69 @@ export default function GraphView({ rawInitData }) {
   }
 
   function handleBackgroundClick () {
-    data.current = initData
     setState(NO_INTERACTION)
   }
 
   /* Styling */
 
-  // useEffect(() => {
-  //   linkCurvature(data.links)
-  // }, [state])
-
   const setNodeColor = (node) => {
-    const hoveredNode = data.nodes.find((n) => n.id === state.hovered)
-    if (
-      hoveredNode && (
-        state.hovered === node.id ||
-        hoveredNode.entities?.includes(node.id) ||
-        hoveredNode.primitives?.includes(node.id)
-      )
-    ) {
-      return node.color.replace(/(\d+)%\)/, '75%)')
-    }
-    
-    const clickedNode = data.nodes.find((n) => n.id === state.clicked)
-    if (
-      (!focusMode && node.entities) || 
-      (focusMode && (
-        state.clicked === node.id ||
-        clickedNode.entities?.includes(node.id) ||
-        clickedNode.primitives?.includes(node.id) ||
-        clickedNode.relationships?.id === node.id
-      ))
-    ) {
-      return node.color?.replace(/(\d+)%\)/, '50%)')
-    }
+    const clickedNode = findNode(state.clicked)
+    const hoveredNode = findNode(state.hovered)
 
-    return node.color?.replace(/(\d+)%\)/, '25%)')
+    if (state.clicked !== null) {
+      if (state.clicked === node.id) {
+        return node.color?.replace(/(\d+)%\)/, '75%)')
+      }
+      if (clickedNode.relationships) {
+        if (clickedNode.relationships.map((r) => r.id).includes(state.hovered)) {
+          if (clickedNode.primitives.includes(node.id) && hoveredNode.primitives.includes(node.id)) {
+            return node.color?.replace(/(\d+)%\)/, '75%)')
+          }
+        }
+        else if (clickedNode.primitives.includes(node.id)) {
+          return node.color?.replace(/(\d+)%\)/, '75%)') 
+        }
+      }
+      if (clickedNode.entities) {
+        if (hoveredNode?.entities && state.hovered !== state.clicked) {
+          if (clickedNode.entities.includes(node.id) && hoveredNode.entities.includes(node.id)) {
+            return node.color?.replace(/(\d+)%\)/, '75%)')
+          }
+        }
+        else if (clickedNode.entities.includes(node.id)) {
+          return node.color?.replace(/(\d+)%\)/, '75%)') 
+        }
+      }
+      return node.color?.replace(/(\d+)%\)/, '25%)')
+    } else {
+      if (state.hovered === node.id) {
+        return node.color?.replace(/(\d+)%\)/, '75%)')
+      }
+      if (hoveredNode?.entities?.includes(node.id)) {
+        return node.color?.replace(/(\d+)%\)/, '75%)')
+      }
+      if (hoveredNode?.primitives?.includes(node.id)) {
+        return node.color?.replace(/(\d+)%\)/, '75%)')
+      }
+    }
+    return node.color
   }
 
   const setNodeVal = (node) => {
     if (node.id[0] === 'k') {
-      return 0.1
+      return 0.25
     }
     if (node.entities) {
       return node.entities.length + 1
     }
-    if (node.relationships) {
-      return node.value / data.nodes.filter((n) => n.relationships).length
+    if (node.id === state.clicked && node.relationships) {
+      return node.value
     }
-    if (state.clicked[0] === 'e') {
-      const clickedEntity = data.nodes.find((e) => e.id === state.clicked)
-      if (clickedEntity.relationships.includes((r) => r.id === node.id)) {
-        return node.sharedAttributes.length + 1
-      }
+    if (state.clicked && state.clicked !== node.id && state.clicked[0] === 'e') {
+      const clickedEntity = findNode(state.clicked)
+      return (clickedEntity.relationships?.find((r) => r.id === node.id)?.sharedAttributes.length || 1)**1.25
     }
-    return node.value
+    return 10
   }
 
   const setLinkColor = (link) => {
@@ -155,12 +162,11 @@ export default function GraphView({ rawInitData }) {
 
   useEffect(() => {
     setTimeout(() => {
-      forceGraph.current.zoomToFit(0, height / 10)
+      forceGraph.current.zoomToFit(0, height / 20)
     }, 1)
   }, [height, width])
 
   
-
   return (
     <>
       <ForceGraph2D

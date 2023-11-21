@@ -56,6 +56,7 @@ function traverseObject(keys, value, entityId) {
       let primNode = {
         id: id,
         name: calcName(keys, value),
+        actualName: value,
         keys: keys,
         parent: keyId,
         entities: [],

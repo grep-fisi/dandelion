@@ -1,17 +1,5 @@
 /* Invisible links */
 
-const rootEntitiesLinker = ({ entityNodes }) => {
-  const entityRootLinks = []
-  entityNodes.forEach((entity) => {
-    entityRootLinks.push({
-      source: 'root',
-      target: entity.id,
-      visible: false,
-    })
-  })
-  return entityRootLinks
-}
-
 const rootKeysLinker = ({ keyNodes }) => {
   const roots = keyNodes.filter((keyNode) => keyNode.parent === 'root')
   const rootKeyLinks = []
@@ -49,10 +37,9 @@ const keyKeyLinker = ({ keyNodes }) => {
   return keyKeyLinks
 }
 
-export default function genInitLinks({ entityNodes, primNodes, keyNodes }) {
+export default function genInitLinks({ primNodes, keyNodes }) {
   // const maxNest = primNodes.map((prim) => prim.keys.length).reduce((a, b) => Math.max(a, b))
   return {
-    rootEntitiesLinks: rootEntitiesLinker({ entityNodes }),
     rootKeysLinks: rootKeysLinker({ keyNodes }),
     primKeyLinks: primKeyLinker({ primNodes }),
     keyKeyLinks: keyKeyLinker({ keyNodes }),
