@@ -1,5 +1,5 @@
 import ForceGraph2D from 'react-force-graph-2d'
-import { forceCollide, forceManyBody, forceX, forceY } from 'd3-force'
+import { forceManyBody, forceX, forceY } from 'd3-force'
 import { useEffect, useRef, useState } from 'react'
 import { useViewportSize } from '@mantine/hooks'
 
@@ -10,6 +10,7 @@ const NO_INTERACTION = {
 
 const NODE_REL_SIZE = 7
 const REPULSION = -250
+const COOLDOWN_TIME = 7000
 
 const entityValue = (entity) => {
   let value = 1
@@ -24,6 +25,7 @@ export default function GraphView({ data }) {
   const [state, setState] = useState(NO_INTERACTION)
   const { height, width } = useViewportSize()
   const findNode = (nodeId) => data.nodes.find((n) => n.id === nodeId)
+  const [decay, setDecay] = useState([0.01, 0.1])
 
   /* Custom forces */
 
@@ -70,12 +72,15 @@ export default function GraphView({ data }) {
   }
 
   function handleNodeClick(clickedNode) {
-    if (state.clicked === clickedNode.id) {
-      setState(NO_INTERACTION)
-      return
-    }
     if (clickedNode.relationships) {
+      if (decay[0] === 0.01 && decay[1] === 0.1) {
+        setDecay([0.05, 0.5])
+      }
       forceGraph.current.d3ReheatSimulation()
+      if (state.clicked === clickedNode.id) {
+        setState(NO_INTERACTION)
+        return
+      }
     }
     setState({
       hovered: state.hovered,
@@ -91,7 +96,10 @@ export default function GraphView({ data }) {
   }
 
   function handleBackgroundClick () {
-    setState(NO_INTERACTION)
+    if (state.clicked) {
+      forceGraph.current.d3ReheatSimulation()
+      setState(NO_INTERACTION)
+    }
   }
 
   /* Styling */
@@ -146,12 +154,17 @@ export default function GraphView({ data }) {
     if (node.entities) {
       return node.entities.length + 1
     }
-    if (node.id === state.clicked && node.relationships) {
-      return node.value
+    const clickedRels = findNode(state.clicked)?.relationships
+    if (clickedRels) {
+      if (state.clicked === node.id) {
+        return NODE_REL_SIZE * entityValue(node) * 0.5
+      }
+      if (node.relationships) {
+        return NODE_REL_SIZE * clickedRels.find((r) => r.id === node.id).sharedAttributes.length * 0.5
+      }
     }
-    if (state.clicked && state.clicked !== node.id && state.clicked[0] === 'e') {
-      const clickedEntity = findNode(state.clicked)
-      return (clickedEntity.relationships?.find((r) => r.id === node.id)?.sharedAttributes.length || 1)**1.25
+    if (node.relationships) {
+      return NODE_REL_SIZE * entityValue(node) * 0.05
     }
     return 10
   }
@@ -189,8 +202,8 @@ export default function GraphView({ data }) {
         nodeVal={setNodeVal}
         nodeVisibility={(node) => node.visible !== false}
         linkVisibility={(link) => link.visible !== false}
-        d3AlphaDecay={0.01}
-        d3VelocityDecay={0.1}
+        d3AlphaDecay={decay[0]}
+        d3VelocityDecay={decay[1]}
       />
     </>
   )
