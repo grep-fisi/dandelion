@@ -218,7 +218,6 @@ export default function GraphView({ data, file }) {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          paddingRight: '20px',
           gap: '10px',
         }}>
           <div>
@@ -244,6 +243,14 @@ export default function GraphView({ data, file }) {
             )
           }
           </div>
+          <Button onClick={() => {
+            const blob = new Blob([JSON.stringify(clickedNode.entities.map((e) => findNode(e).name), null, 3)], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, clickedNode.keys.join('.') + "=" + clickedNode.actualName + ".json");
+          }} color="#303030" >
+            <Text size='15px' c="#C1C2C5">
+              Exportar a JSON
+            </Text>
+          </Button>
         </div>
         </Scrollbars>
       }
