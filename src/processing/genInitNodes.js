@@ -5,7 +5,7 @@ let primNodes = []
 let keyNodes = []
 
 function calcName(keys, value) {
-  return keys.map((key) => key).join(' . ') + `: ${value}`
+  return keys.map((key) => key).join(' · ') + `: ${value}`
 }
 
 function traverseObject(keys, value, entityId) {

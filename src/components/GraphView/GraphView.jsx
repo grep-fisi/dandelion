@@ -1,7 +1,11 @@
 import ForceGraph2D from 'react-force-graph-2d'
 import { forceManyBody, forceX, forceY } from 'd3-force'
 import { useEffect, useRef, useState } from 'react'
-import { useViewportSize } from '@mantine/hooks'
+import { useViewportSize, useDisclosure } from '@mantine/hooks'
+import PropTypes from 'prop-types'
+import { Dialog, Code, Tabs, Button, Text } from '@mantine/core'
+import { Scrollbars } from 'react-custom-scrollbars-2'
+import { saveAs } from 'file-saver'
 
 const NO_INTERACTION = {
   hovered: null,
@@ -10,7 +14,6 @@ const NO_INTERACTION = {
 
 const NODE_REL_SIZE = 7
 const REPULSION = -250
-const COOLDOWN_TIME = 7000
 
 const entityValue = (entity) => {
   let value = 1
@@ -20,19 +23,24 @@ const entityValue = (entity) => {
   return value
 }
 
-export default function GraphView({ data }) {
+export default function GraphView({ data, file }) {
   const forceGraph = useRef(null)
   const [state, setState] = useState(NO_INTERACTION)
-  const { height, width } = useViewportSize()
   const findNode = (nodeId) => data.nodes.find((n) => n.id === nodeId)
+  const clickedNode = findNode(state.clicked)
+  const hoveredNode = findNode(state.hovered)
+  const { height, width } = useViewportSize()
   const [decay, setDecay] = useState([0.01, 0.1])
+  const [opened, { toggle, close }] = useDisclosure(false);
+
+  const clickedEntityObj = file.find((f) => f.name === clickedNode?.name)
 
   /* Custom forces */
 
   useEffect(() => {
     forceGraph.current.d3Force('centerX', forceX(0))
     forceGraph.current.d3Force('centerY', forceY(0))
-  })
+  }, [])
 
   useEffect(() => {
     forceGraph.current.d3Force('charge', forceManyBody()
@@ -51,7 +59,7 @@ export default function GraphView({ data }) {
               return REPULSION * entityValue(node)
             }
             if (node.relationships) {
-              return REPULSION * clickedRels.find((r) => r.id === node.id).sharedAttributes.length
+              return REPULSION * clickedRels.find((r) => r.id === node.id)?.sharedAttributes.length
             }
           }
           if (node.relationships) {
@@ -78,10 +86,12 @@ export default function GraphView({ data }) {
       }
       forceGraph.current.d3ReheatSimulation()
       if (state.clicked === clickedNode.id) {
+        close()
         setState(NO_INTERACTION)
         return
       }
     }
+    !opened && toggle()
     setState({
       hovered: state.hovered,
       clicked: clickedNode.id
@@ -97,6 +107,7 @@ export default function GraphView({ data }) {
 
   function handleBackgroundClick () {
     if (state.clicked) {
+      close()
       forceGraph.current.d3ReheatSimulation()
       setState(NO_INTERACTION)
     }
@@ -112,25 +123,28 @@ export default function GraphView({ data }) {
       if (state.clicked === node.id) {
         return node.color?.replace(/(\d+)%\)/, '75%)')
       }
-      if (clickedNode.relationships) {
+      if (clickedNode?.relationships) {
         if (clickedNode.relationships.map((r) => r.id).includes(state.hovered)) {
           if (clickedNode.primitives.includes(node.id) && hoveredNode.primitives.includes(node.id)) {
             return node.color?.replace(/(\d+)%\)/, '75%)')
           }
         }
         else if (clickedNode.primitives.includes(node.id)) {
-          return node.color?.replace(/(\d+)%\)/, '75%)') 
+          return node.color?.replace(/(\d+)%\)/, '60%)') 
         }
       }
-      if (clickedNode.entities) {
+      if (clickedNode?.entities) {
         if (hoveredNode?.entities && state.hovered !== state.clicked) {
           if (clickedNode.entities.includes(node.id) && hoveredNode.entities.includes(node.id)) {
             return node.color?.replace(/(\d+)%\)/, '75%)')
           }
         }
         else if (clickedNode.entities.includes(node.id)) {
-          return node.color?.replace(/(\d+)%\)/, '75%)') 
+          return node.color?.replace(/(\d+)%\)/, '75%)')
         }
+      }
+      if (node.entities) {
+        return node.color?.replace(/(\d+)%\)/, '25%)').replace(/(\d+)%/, '35%')
       }
       return node.color?.replace(/(\d+)%\)/, '25%)')
     } else {
@@ -160,7 +174,7 @@ export default function GraphView({ data }) {
         return NODE_REL_SIZE * entityValue(node) * 0.5
       }
       if (node.relationships) {
-        return NODE_REL_SIZE * clickedRels.find((r) => r.id === node.id).sharedAttributes.length * 0.5
+        return NODE_REL_SIZE * clickedRels.find((r) => r.id === node.id)?.sharedAttributes.length * 0.5
       }
     }
     if (node.relationships) {
@@ -175,13 +189,151 @@ export default function GraphView({ data }) {
 
   useEffect(() => {
     setTimeout(() => {
-      forceGraph.current.zoomToFit(0, height / 20)
+      forceGraph.current.zoomToFit(0, height / 10)
     }, 1)
   }, [height, width])
 
   
   return (
     <>
+      <Dialog
+        styles={{ root: { 
+          border: clickedNode ? '1px solid #303030' : 'none',
+          backgroundColor: '#272727',
+          maxHeight: '75vh',
+        }}}
+        opened={opened} 
+        onClose={close} 
+        size="auto"
+        position={{ top: 40, left: 30 }}
+      >
+      {
+        clickedNode?.entities &&
+        <Scrollbars autoHide autoHeight autoHeightMax={'50vh'} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
+          <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}></div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingRight: '20px',
+          gap: '10px',
+        }}>
+          <div>
+            <Code color='#272727' c={clickedNode.color.replace(/(\d+)%\)/, '60%)')}>
+              {findNode(state.clicked).keys.join(' · ') + ":"}
+            </Code>
+            <Code color='#272727' c={clickedNode.color.replace(/(\d+)%\)/, '75%)')}>
+              {findNode(state.clicked).actualName}
+            </Code>
+          </div>
+          <div>
+          {
+            clickedNode.entities.map((e, index) => 
+              <div key={index}>
+                <Code color='#272727' c={
+                  hoveredNode?.entities?.includes(e) ? 
+                    hoveredNode.color.replace(/(\d+)%\)/, '65%)') 
+                    : '#C1C2C5' 
+                } >
+                  {findNode(e).name}
+                </Code>
+              </div>
+            )
+          }
+          </div>
+        </div>
+        </Scrollbars>
+      }
+      {
+        clickedNode?.primitives &&
+        <Scrollbars autoHide autoHeight autoHeightMax={500} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
+          <Tabs color="#606060" defaultValue="entity">
+            <Tabs.List >
+              <Tabs.Tab value='entity'>Entidad</Tabs.Tab>
+              <Tabs.Tab value='connections'>Conexiones</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value='entity'>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                paddingRight: '10px',
+                paddingTop: '12px',
+              }}>
+              {
+                Object.keys(clickedEntityObj)?.map((k, index) =>
+                  <pre key={index}>
+                    <Code block="true" color='#272727' c={
+                      data.nodes.find((n) => n.name === k)?.color.replace(/(\d+)%\)/, '65%)').replace(/(\d+)%/, '50%')
+                    }>
+                    {k + ": " + JSON.stringify(clickedEntityObj[k], null, 3)}
+                    </Code>
+                  </pre>
+                )
+              }
+              <Button onClick={() => {
+                const blob = new Blob([JSON.stringify(clickedEntityObj, null, 3)], { type: "text/plain;charset=utf-8" });
+                saveAs(blob, clickedNode.name + ".json");
+              }} color="#303030" >
+                <Text size='15px' c="#C1C2C5">
+                  Exportar a JSON
+                </Text>
+              </Button>
+              </div>
+            </Tabs.Panel>
+            <Tabs.Panel value='connections'>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                paddingRight: '10px',
+                gap: '10px',
+                paddingTop: '20px'
+              }}>
+              { 
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {clickedNode.relationships.sort((a, b) => b.sharedAttributes.length - a.sharedAttributes.length).map((r, index) => {
+                    return (
+                      <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <Code color='#272727'>
+                          {"name: " + r.name}
+                        </Code>
+                        <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
+                          {r.sharedAttributes.map((s, ind) =>
+                          <Code color='#272727' c={s.color.replace(/(\d+)%\)/, '65%)')} key={ind}>
+                            {s.name}
+                          </Code>)}
+                        </div>
+                        
+                      </div>
+                    )
+                  })}
+                </div>
+              }
+              <Button onClick={() => {
+                const blob = new Blob([
+                  JSON.stringify(
+                    clickedNode.relationships.map((r) => {
+                      return {
+                        name: r.name,
+                        sharedAttributes: r.sharedAttributes.map((s) => s.name)
+                      }
+                    }), null, 3
+                  )
+                ], { type: "text/plain;charset=utf-8" });
+                saveAs(blob, clickedNode.name + ".json");
+              }} color="#303030" >
+                <Text size='15px' c="#C1C2C5">
+                  Exportar a JSON
+                </Text>
+              </Button>
+              </div>
+            </Tabs.Panel>
+          </Tabs>
+        </Scrollbars>
+      }
+      </Dialog>
       <ForceGraph2D
         ref={forceGraph}
         width={width}
@@ -207,4 +359,12 @@ export default function GraphView({ data }) {
       />
     </>
   )
+}
+
+GraphView.propTypes = {
+  data: PropTypes.shape({
+    nodes: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired
+  }).isRequired,
+  file: PropTypes.array.isRequired
 }

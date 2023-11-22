@@ -1,169 +1,26 @@
-import files from './datasets/files.json'
-import GraphView from './components/GraphView/GraphView'
-import { useEffect, useState, useMemo } from 'react'
-import { useDisclosure } from '@mantine/hooks'
-import { Dialog, TextInput } from '@mantine/core'
-import genInitNodes from './processing/genInitNodes'
-import genLinks from './processing/genInitLinks'
-import rootEntitiesLinker from './processing/rootEntitiesLinker'
-
-const arraysEqual = (a, b) => {
-  if (a.length !== b.length) return false
-  for (let i = 0; i < a.length; i++)
-    if (a[i] !== b[i]) return false
-  return true
-}
+// import { useState } from 'react';
+// import { FileButton, Button, Group, Text } from '@mantine/core';
+import Container from './Container';
 
 export default function App() {
-  const initNodes = useMemo(() => genInitNodes(files, 'name'), [])
-  const initLinks = useMemo(() => genLinks(initNodes), [initNodes])
-  const [data, setData] = useState({ 
-    nodes: [
-      ...initNodes.entityNodes,
-      ...initNodes.keyNodes,
-      ...initNodes.primNodes,
-    ], 
-    links: [
-      ...initLinks.rootKeysLinks,
-      ...initLinks.primKeyLinks,
-      ...initLinks.keyKeyLinks,
-      ...rootEntitiesLinker(initNodes.entityNodes)
-    ]
-  })
-
-  const [opened, { toggle, close }] = useDisclosure(false)
-  const [filterPlaceholder, setFilterPlaceholder] = useState('')
-  const [filterInput, setFilterInput] = useState('')
-  const [filterInputInvalid, setFilterInputInvalid] = useState(false)
-
-  const handleEnter = () => {
-    if (filterInput === '') {
-      setData({ 
-        nodes: [
-          ...initNodes.entityNodes,
-          ...initNodes.keyNodes,
-          ...initNodes.primNodes,
-        ], 
-        links: [
-          ...initLinks.rootKeysLinks,
-          ...initLinks.primKeyLinks,
-          ...initLinks.keyKeyLinks,
-          ...rootEntitiesLinker(initNodes.entityNodes)
-        ]
-      })
-      return
-    }
-
-    const splitPattern = /( *\|\| *)|( *&& *)|( *\( *)|( *\) *)/
-    const tokens = filterInput.split(splitPattern);
-    const propositions = tokens.filter((t) => t && !t.match(splitPattern))
-
-    const sets = propositions.map((p) => {
-      const pair = p.split(/ *: */)
-      if (pair.length !== 2) {
-        setFilterInputInvalid(true)
-        return
-      }
-      const keys = pair[0].split(/ ?(\.|·) ?/).filter((t) => t !== "." && t !== "·")
-      const slash = /^(?: *\/)(.+)(?:\/(\w)? *)$/g
-      const quote = /^(?: *['|"])(.+)(?:['|"](\w)? *)$/g
-      if (pair[1].match(slash)) {
-        const search = new RegExp(pair[1].replace(slash, '$1'), pair[1].replace(slash, '$2') || '')
-        return ({
-          proposition: p,
-          entities: new Set(initNodes.primNodes.reduce((accumulator, p) => {
-            if (arraysEqual(p.keys, keys) && p.actualName.toString().match(search)) {
-              return [...accumulator, ...p.entities];
-            }
-            return accumulator;
-          }, [])),
-        })
-      }
-      const value = pair[1].replace(quote, '$1')
-      return ({
-        proposition: p,
-        entities: new Set(initNodes.primNodes.find((p) => arraysEqual(p.keys, keys) && p.actualName.toString() === value).entities),
-      })
-    })
-
-    const matchingEntities = initNodes.entityNodes.filter((e) => {
-      let evaluatedInput = filterInput
-      sets.forEach((s) => {
-        evaluatedInput = evaluatedInput.replace(s.proposition, s.entities.has(e.id))
-      })
-      return (eval(evaluatedInput))
-    })
-
-    setData({
-      nodes: [
-        ...matchingEntities,
-        ...initNodes.keyNodes,
-        ...initNodes.primNodes,
-      ], 
-      links: [
-        ...initLinks.rootKeysLinks,
-        ...initLinks.primKeyLinks,
-        ...initLinks.keyKeyLinks,
-        ...rootEntitiesLinker(matchingEntities)
-      ]
-    })
-  }
-  
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.altKey && (e.key === 'f' || e.key === 'F')) {
-        toggle()
-      } else if (e.key === 'Escape' && opened) {
-        close()
-      } else if (e.key === 'Enter' && opened) {
-        handleEnter()
-      } else if (e.key == 'Tab' && opened && filterInput === '') {
-        e.preventDefault()
-        setFilterInput(filterPlaceholder)
-      }
-    }
-    
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [opened, filterInput, handleEnter])
-
-  useEffect(() => {
-    if (opened) {
-      const randomEntity = initNodes.entityNodes[Math.floor(Math.random() * initNodes.entityNodes.length)]
-      const randomPrimIndex = Math.floor(Math.random() * (randomEntity.primitives.length - 2)) + 2
-      setFilterPlaceholder(initNodes.primNodes.find((p) => p.id === randomEntity.primitives[randomPrimIndex]).name)
-    }
-  }, [initNodes.entityNodes, initNodes.primNodes, opened])
-
-  useEffect(() => {
-    setFilterInputInvalid(false)
-  }, [opened, filterInput])
+  // const [file, setFile] = useState(null)
 
   return (
     <>
-      <Dialog
-        styles={{
-          root: { backgroundColor: '#fff0' }
-        }}
-        position={{ top: 20, left: 20 }}
-        opened={opened}
-        onClose={close}
-        size="lg"
-        radius="md"
-      >
-        <TextInput
-          placeholder={filterPlaceholder}
-          style={{ flex: 1 }}
-          value={filterInput}
-          onChange={(event) => {
-            setFilterInput(event.currentTarget.value)
-          }}
-          error={filterInputInvalid}
-        />
-      </Dialog>
-      <GraphView data={data} />
+      {/* {
+        file ?
+        <Container file={JSON.parse(file)} />
+        : <Group justify="center">
+          <FileButton onChange={setFile} accept=".json">
+            {(props) => <Button {...props} color="#303030" >
+              <Text size='15px' c="#C1C2C5">
+                Sube un dataset en formato JSON
+              </Text>  
+            </Button>}
+          </FileButton>
+        </Group>
+      } */}
+      <Container />
     </>
   )
 }
