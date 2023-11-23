@@ -94,7 +94,7 @@ export default function GraphView({ data, file }) {
       }
       if (state.clicked === clickedNode.id) {
         setState(NO_INTERACTION)
-        return
+        return  
       }
     }
     setState({

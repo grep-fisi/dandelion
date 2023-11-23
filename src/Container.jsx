@@ -1,4 +1,4 @@
-import file from './datasets/files.json'
+// import file from './datasets/files.json'
 import GraphView from './components/GraphView/GraphView'
 import { useEffect, useState, useMemo } from 'react'
 import { useDisclosure } from '@mantine/hooks'
@@ -14,7 +14,7 @@ const arraysEqual = (a, b) => {
   return true
 }
 
-export default function Container() {
+export default function Container({ file }) {
   const initNodes = useMemo(() => genInitNodes(file, 'name'), [])
   const initLinks = useMemo(() => genLinks(initNodes), [initNodes])
   const [data, setData] = useState({ 
