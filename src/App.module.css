@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.logo {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.crearbutton {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 2rem;
+}

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { FileButton, Button, Group, Text } from '@mantine/core';
+import { FileButton, Button, Text } from '@mantine/core';
 import Container from './Container';
+import grafosomaIcon from './assets/grafosoma.svg'
+
+import styles from './App.module.css';
 
 export default function App() {
   const [file, setFile] = useState(null)
@@ -18,20 +21,21 @@ export default function App() {
 
   return (
     <>
-      {
-        fileContent ?
-        <Container file={fileContent} />
-        : <Group justify="center">
-          <FileButton onChange={setFile} accept=".json">
-            {(props) => <Button {...props} color="#303030" >
-              <Text size='15px' c="#C1C2C5">
-                Sube un dataset en formato JSON
-              </Text>  
-            </Button>}
-          </FileButton>
-        </Group>
-      }
-      {/* <Container /> */}
+    {
+      fileContent ?
+      <Container file={fileContent} />
+      : 
+      <div className={styles.container}>
+        <img src={grafosomaIcon} alt="Grafosoma" className={styles.logo} />
+        <FileButton onChange={setFile} accept=".json">
+          {(props) => <Button className={styles.crearbutton} {...props} color="#303030" >
+            <Text size='15px' c="#C1C2C5">
+              Crear proyecto
+            </Text>  
+          </Button>}
+        </FileButton>
+      </div>  
+    }
     </>
   )
 }

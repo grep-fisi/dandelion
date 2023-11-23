@@ -251,7 +251,7 @@ export default function GraphView({ data, file }) {
             saveAs(blob, clickedNode.keys.join('.') + "=" + clickedNode.actualName + ".json");
           }} color="#303030" >
             <Text size='15px' c="#C1C2C5">
-              Exportar a JSON
+              Exportar
             </Text>
           </Button>
         </div>
@@ -288,7 +288,7 @@ export default function GraphView({ data, file }) {
                 saveAs(blob, clickedNode.name + ".json");
               }} color="#303030" >
                 <Text size='15px' c="#C1C2C5">
-                  Exportar a JSON
+                  Exportar
                 </Text>
               </Button>
               </div>
@@ -335,7 +335,7 @@ export default function GraphView({ data, file }) {
                 saveAs(blob, clickedNode.name + ".json");
               }} color="#303030" >
                 <Text size='15px' c="#C1C2C5">
-                  Exportar a JSON
+                  Exportar
                 </Text>
               </Button>
               </div>
