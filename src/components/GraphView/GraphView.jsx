@@ -68,6 +68,14 @@ export default function GraphView({ data, file }) {
           return REPULSION
         }
       ))
+    if (clickedNode) {
+      forceGraph.current.d3ReheatSimulation()
+      !opened && toggle()
+    }
+    if (!clickedNode && opened) {
+      close()
+      forceGraph.current.d3ReheatSimulation()
+    }
   }, [state.clicked])
 
   /* Event handlers */
@@ -84,14 +92,11 @@ export default function GraphView({ data, file }) {
       if (decay[0] === 0.01 && decay[1] === 0.1) {
         setDecay([0.05, 0.5])
       }
-      forceGraph.current.d3ReheatSimulation()
       if (state.clicked === clickedNode.id) {
-        close()
         setState(NO_INTERACTION)
         return
       }
     }
-    !opened && toggle()
     setState({
       hovered: state.hovered,
       clicked: clickedNode.id
@@ -107,8 +112,6 @@ export default function GraphView({ data, file }) {
 
   function handleBackgroundClick () {
     if (state.clicked) {
-      close()
-      forceGraph.current.d3ReheatSimulation()
       setState(NO_INTERACTION)
     }
   }
