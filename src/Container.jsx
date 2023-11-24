@@ -2,7 +2,9 @@
 import GraphView from './components/GraphView/GraphView'
 import { useEffect, useState, useMemo } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { Dialog, TextInput } from '@mantine/core'
+import { Dialog, TextInput, Button } from '@mantine/core'
+import { FiSearch } from 'react-icons/fi';
+import { TfiClose } from "react-icons/tfi";
 import genInitNodes from './processing/genInitNodes'
 import genLinks from './processing/genInitLinks'
 import rootEntitiesLinker from './processing/rootEntitiesLinker'
@@ -143,11 +145,23 @@ export default function Container({ file }) {
 
   return (
     <div>
+      <Button 
+        style={{
+          position: 'absolute',
+          top: '33px',
+          right: '30px',
+          zIndex: 1000,
+          backgroundColor: '#303030',
+        }}
+        onClick={toggle}
+      >
+        { !opened ? <FiSearch /> : <TfiClose /> }
+      </Button>
       <Dialog
         styles={{
           root: { backgroundColor: '#fff0' }
         }}
-        position={{ top: 20, right: 20 }}
+        position={{ top: 17, right: 80 }}
         opened={opened}
         onClose={close}
         size="lg"
