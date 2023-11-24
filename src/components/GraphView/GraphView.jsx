@@ -14,6 +14,7 @@ const NO_INTERACTION = {
 
 const NODE_REL_SIZE = 7
 const REPULSION = -250
+const INIT_DECAY = [0.005, 0.075]
 
 const entityValue = (entity) => {
   let value = 1
@@ -23,6 +24,7 @@ const entityValue = (entity) => {
   return value
 }
 
+
 export default function GraphView({ data, file }) {
   const forceGraph = useRef(null)
   const [state, setState] = useState(NO_INTERACTION)
@@ -30,7 +32,7 @@ export default function GraphView({ data, file }) {
   const clickedNode = findNode(state.clicked)
   const hoveredNode = findNode(state.hovered)
   const { height, width } = useViewportSize()
-  const [decay, setDecay] = useState([0.01, 0.1])
+  const [decay, setDecay] = useState(INIT_DECAY)
   const [opened, { toggle, close }] = useDisclosure(false);
 
   const clickedEntityObj = file.find((f) => f.name === clickedNode?.name)
@@ -47,7 +49,7 @@ export default function GraphView({ data, file }) {
       .strength(
         (node) => {
           if (node.children) {
-            return REPULSION * node.children.length
+            return REPULSION / node.children.length
           }
           const nodeEntities = node.entities
           if (nodeEntities) {
@@ -89,7 +91,7 @@ export default function GraphView({ data, file }) {
 
   function handleNodeClick(clickedNode) {
     if (clickedNode.relationships) {
-      if (decay[0] === 0.01 && decay[1] === 0.1) {
+      if (decay[0] === INIT_DECAY[0] && decay[1] === INIT_DECAY[1]) {
         setDecay([0.05, 0.5])
       }
       if (state.clicked === clickedNode.id) {
@@ -111,6 +113,9 @@ export default function GraphView({ data, file }) {
   }
 
   function handleBackgroundClick () {
+    if (decay[0] === INIT_DECAY[0] && decay[1] === INIT_DECAY[1]) {
+      setDecay([0.05, 0.5])
+    }
     if (state.clicked) {
       setState(NO_INTERACTION)
     }
@@ -211,23 +216,29 @@ export default function GraphView({ data, file }) {
         position={{ top: 40, left: 30 }}
       >
       {
-        clickedNode?.entities &&
+        clickedNode?.entities && // it's a primitive
+        <>
+          
         <Scrollbars autoHide autoHeight autoHeightMax={'50vh'} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
           <div style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '10px'
-        }}></div>
+        }}>
+        </div>
         <div style={{
           display: 'flex',
           flexDirection: 'column',
+          backgroundColor: '#242424',
+          padding: '15px 15px',
+          borderRadius: '3px',
           gap: '10px',
         }}>
           <div>
-            <Code color='#272727' c={clickedNode.color.replace(/(\d+)%\)/, '60%)')}>
+            <Code color='#242424' c={clickedNode.color.replace(/(\d+)%\)/, '60%)')}>
               {findNode(state.clicked).keys.join(' · ') + ":"}
             </Code>
-            <Code color='#272727' c={clickedNode.color.replace(/(\d+)%\)/, '75%)')}>
+            <Code color='#242424' c={clickedNode.color.replace(/(\d+)%\)/, '75%)')}>
               {findNode(state.clicked).actualName}
             </Code>
           </div>
@@ -235,7 +246,7 @@ export default function GraphView({ data, file }) {
           {
             clickedNode.entities.map((e, index) => 
               <div key={index}>
-                <Code color='#272727' c={
+                <Code color='#242424' c={
                   hoveredNode?.entities?.includes(e) ? 
                     hoveredNode.color.replace(/(\d+)%\)/, '65%)') 
                     : '#C1C2C5' 
@@ -246,36 +257,42 @@ export default function GraphView({ data, file }) {
             )
           }
           </div>
-          <Button onClick={() => {
+        </div>
+        </Scrollbars>
+          <div style={{ paddingTop: "15px"}}>
+          <Button fullWidth onClick={() => {
             const blob = new Blob([JSON.stringify(clickedNode.entities.map((e) => findNode(e).name), null, 3)], { type: "text/plain;charset=utf-8" });
             saveAs(blob, clickedNode.keys.join('.') + "=" + clickedNode.actualName + ".json");
           }} color="#303030" >
             <Text size='15px' c="#C1C2C5">
-              Exportar
+              Save as file
             </Text>
           </Button>
-        </div>
-        </Scrollbars>
+          </div>
+          </>
       }
       {
-        clickedNode?.primitives &&
-        <Scrollbars autoHide autoHeight autoHeightMax={500} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
+        clickedNode?.primitives && // it's an entity
+        <>
           <Tabs color="#606060" defaultValue="entity">
-            <Tabs.List >
-              <Tabs.Tab value='entity'>Entidad</Tabs.Tab>
-              <Tabs.Tab value='connections'>Conexiones</Tabs.Tab>
+            <Tabs.List grow style={{ marginBottom: "20px"}} >
+              <Tabs.Tab value='entity'>Entity</Tabs.Tab>
+              <Tabs.Tab value='connections'>Connections</Tabs.Tab>
             </Tabs.List>
+              <Scrollbars autoHide autoHeight autoHeightMax={500} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
             <Tabs.Panel value='entity'>
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                paddingRight: '10px',
-                paddingTop: '12px',
+                backgroundColor: '#242424',
+                // marginTop: '15px',
+                borderRadius: '3px',
+                padding: '15px 10px',
               }}>
               {
                 Object.keys(clickedEntityObj)?.map((k, index) =>
                   <pre key={index}>
-                    <Code block="true" color='#272727' c={
+                    <Code styles={{ root: { padding: "10px" }}} block="true" color='#242424' c={
                       data.nodes.find((n) => n.name === k)?.color.replace(/(\d+)%\)/, '65%)').replace(/(\d+)%/, '50%')
                     }>
                     {k + ": " + JSON.stringify(clickedEntityObj[k], null, 3)}
@@ -283,35 +300,33 @@ export default function GraphView({ data, file }) {
                   </pre>
                 )
               }
-              <Button onClick={() => {
-                const blob = new Blob([JSON.stringify(clickedEntityObj, null, 3)], { type: "text/plain;charset=utf-8" });
-                saveAs(blob, clickedNode.name + ".json");
-              }} color="#303030" >
-                <Text size='15px' c="#C1C2C5">
-                  Exportar
-                </Text>
-              </Button>
               </div>
             </Tabs.Panel>
+              </Scrollbars>
+              <Scrollbars autoHide autoHeight autoHeightMax={500} renderThumbVertical={() => <div style={{ backgroundColor: '#303030', borderRadius: '20px' }} className="thumb-vertical"/>}>
+
             <Tabs.Panel value='connections'>
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 paddingRight: '10px',
+                backgroundColor: '#242424',
                 gap: '10px',
-                paddingTop: '20px'
+                // marginTop: '15px',
+                borderRadius: '3px',
+                padding: '20px 15px'
               }}>
               { 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {clickedNode.relationships.sort((a, b) => b.sharedAttributes.length - a.sharedAttributes.length).map((r, index) => {
                     return (
                       <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <Code color='#272727'>
-                          {"name: " + r.name}
+                        <Code color='#242424'>
+                          {r.name}
                         </Code>
                         <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
                           {r.sharedAttributes.map((s, ind) =>
-                          <Code color='#272727' c={s.color.replace(/(\d+)%\)/, '65%)')} key={ind}>
+                          <Code color='#242424' c={s.color.replace(/(\d+)%\)/, '65%)')} key={ind}>
                             {s.name}
                           </Code>)}
                         </div>
@@ -320,28 +335,35 @@ export default function GraphView({ data, file }) {
                     )
                   })}
                 </div>
-              }
-              <Button onClick={() => {
-                const blob = new Blob([
-                  JSON.stringify(
-                    clickedNode.relationships.map((r) => {
-                      return {
-                        name: r.name,
-                        sharedAttributes: r.sharedAttributes.map((s) => s.name)
-                      }
-                    }), null, 3
-                  )
-                ], { type: "text/plain;charset=utf-8" });
-                saveAs(blob, clickedNode.name + ".json");
-              }} color="#303030" >
-                <Text size='15px' c="#C1C2C5">
-                  Exportar
-                </Text>
-              </Button>
+              }             
               </div>
             </Tabs.Panel>
+            </Scrollbars>
+
           </Tabs>
-        </Scrollbars>
+        <div style={{ paddingTop: "20px"}}>
+        <Button
+        fullWidth
+          onClick={() => {
+            const blob = new Blob([
+              JSON.stringify({
+                entity: clickedEntityObj,
+                relationships: clickedNode.relationships.map((r) => {
+                  return {
+                    name: r.name,
+                    sharedAttributes: r.sharedAttributes.map((s) => s.name)
+                  }
+                })
+              }, null, 3)
+            ], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, clickedNode.name + ".json");
+          }} color="#303030" >
+            <Text size='15px' c="#C1C2C5">
+              Save as file
+            </Text>
+        </Button>
+        </div>
+      </>
       }
       </Dialog>
       <ForceGraph2D
