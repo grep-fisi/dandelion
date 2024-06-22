@@ -8,6 +8,8 @@ Traditional data visualization methods focus on explicit connections. However, u
 
 ## Features
 
+![1719071364736](image/README/1719071364736.png)
+
 * **Graph-based Grouping System:** Visualizes data with graph representations.
 * **Implicit Connection Exploration:** Reveals hidden or indirect relationships within datasets.
 * **Relative Node Sizing:** Shows the significance of each element based on connections.
@@ -24,21 +26,28 @@ Traditional data visualization methods focus on explicit connections. However, u
 
 ## Installation
 
-1. **Clone the repository**
-2. ```
-   git clone https://github.com/grep-fisi/dandelion.git
-   cd dandelion/src
-   ```
-3. **Install depencies:**
-4. ```
-   npm install
-   ```
-5. **Run the aplication**
-6. ```
-   npm run dev
-   ```
+**1. Clone the repository**
+
+```
+git clone https://github.com/grep-fisi/dandelion.git
+cd dandelion/src
+```
+
+**2. Install depencies:**
+
+```
+npm install
+```
+
+**3. Run the aplication**
+
+```
+npm run dev
+```
 
 ## Usage
+
+![1719071301193](image/README/1719071301193.png)
 
 Once the application is up and running, you can start using the file manager by following these steps:
 
@@ -57,3 +66,8 @@ Once the application is up and running, you can start using the file manager by 
 ## Acknowledgements
 
 This project was funded by Huawei as part of the Huawei LATAM 2023 competition, where it reached the semifinals in China. The competition was highly selective, allowing only two representative groups per university across Latin America. Our team from the National University of San Marcos, one of Peru's most prestigious universities, was the only team from our institution to pass the tests and advance to the semifinals. We extend our gratitude to Huawei for their support and to our university for their encouragement.
+
+
+## Team
+
+![1719071558646](image/README/1719071558646.png)
