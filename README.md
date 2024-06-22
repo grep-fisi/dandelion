@@ -2,7 +2,9 @@
 
 Dandelion is a graph-based file manager designed to simplify data organization and sharing across teams. It supports multiple platforms and is ideal for system administrators and international marketing leaders.
 
-![1719071364736](https://file+.vscode-resource.vscode-cdn.net/d%3A/Codigo/dandelion/image/README/1719071364736.png)
+![1719072636621](image/README/1719072636621.png)
+
+![1719072695452](image/README/1719072695452.png)
 
 ## Background
 
@@ -47,7 +49,6 @@ npm run dev
 
 ## Usage
 
-![1719071301193](image/README/1719071301193.png)
 
 Once the application is up and running, you can start using the file manager by following these steps:
 
@@ -66,7 +67,6 @@ Once the application is up and running, you can start using the file manager by 
 ## Acknowledgements
 
 This project was funded by Huawei as part of the Huawei LATAM 2023 competition, where it reached the semifinals in China. The competition was highly selective, allowing only two representative groups per university across Latin America. Our team from the National University of San Marcos, one of Peru's most prestigious universities, was the only team from our institution to pass the tests and advance to the semifinals. We extend our gratitude to Huawei for their support and to our university for their encouragement.
-
 
 ## Team
 
