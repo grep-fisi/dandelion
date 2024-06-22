@@ -70,4 +70,12 @@ This project was funded by Huawei as part of the Huawei LATAM 2023 competition, 
 
 ## Team
 
+Jesus Stevan Diaz Ingol: [https://github.com/feelware](https://github.com/feelware)
+
+Paolo Flores Cóngora: [https://github.com/paoloose](https://github.com/paoloose)
+
+Rodrigo José Alva Sáenz: [https://github.com/pandadiestro](https://github.com/pandadiestro)
+
+Hector Manuel Zerrillo Gonzales: [https://github.com/Hecze](https://github.com/Hecze)
+
 ![1719071558646](image/README/1719071558646.png)
