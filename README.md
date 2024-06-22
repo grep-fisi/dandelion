@@ -2,13 +2,13 @@
 
 Dandelion is a graph-based file manager designed to simplify data organization and sharing across teams. It supports multiple platforms and is ideal for system administrators and international marketing leaders.
 
+![1719071364736](https://file+.vscode-resource.vscode-cdn.net/d%3A/Codigo/dandelion/image/README/1719071364736.png)
+
 ## Background
 
 Traditional data visualization methods focus on explicit connections. However, understanding datasets requires examining both explicit and implicit connections. Dandelion addresses this need by providing insights into the underlying relationships between nodes.
 
 ## Features
-
-![1719071364736](image/README/1719071364736.png)
 
 * **Graph-based Grouping System:** Visualizes data with graph representations.
 * **Implicit Connection Exploration:** Reveals hidden or indirect relationships within datasets.
